@@ -34,7 +34,7 @@ CloseCallback = <function> - Function to execute when the window is closed.
 ```lua
 local Tab = Window:MakeTab({
 	Name = "Tab 1",
-	Icon = "rbxassetid://15522465154",
+	Icon = "rbxassetid://15150981742",
 	PremiumOnly = false
 })
 
@@ -61,7 +61,7 @@ You can add elements to sections the same way you would add them to a tab normal
 OrionLib:MakeNotification({
 	Name = "Title!",
 	Content = "Notification content... what will it say??",
-	Image = "rbxassetid://15522465154",
+	Image = "rbxassetid://15150981742",
 	Time = 5
 })
 
