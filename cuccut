@@ -2782,7 +2782,7 @@ local Section = SE:AddSection({
 	Name = "Boats"
 })
 
-IQ:AddToggle({
+SE:AddToggle({
 	Name = "Auto Sail",
 	Default = false,
     Flag = "Auto Sail",
@@ -5944,6 +5944,34 @@ spawn(function()
                 here3:Set("Jeremy Boss : ✅")
             else
                 here3:Set("Jeremy Boss : ❌")
+            end
+        end)
+    end
+end)
+
+spawn(function()
+    while wait() do
+        pcall(function()
+            if _G.BiirTrax then
+                wait(0.8) 
+                local targetModelName = "PirateBrigade"  -- Ganti dengan nama model yang dicari
+                local models = workspace.Boats:GetChildren()  -- Sesuaikan dengan hierarki kapalmu
+
+                for _, model in pairs(models) do
+                    if model.Name == targetModelName then
+                        local speed = 10.5
+                        local forwardDirection = model.PrimaryPart.CFrame.lookVector
+                        local targetPosition = model.PrimaryPart.Position + forwardDirection * 10
+                        
+                        while (model.PrimaryPart.Position - targetPosition).Magnitude > 0.1 do
+                            model:SetPrimaryPartCFrame(model.PrimaryPart.CFrame + forwardDirection * speed)
+                            task.wait()
+                            if not _G.BiirTrax then
+                                break  -- Hentikan pergerakan jika _G.BiirTrax diatur ke false
+                            end
+                        end
+                    end
+                end
             end
         end)
     end
