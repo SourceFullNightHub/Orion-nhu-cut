@@ -2617,7 +2617,7 @@ local Section = G:AddSection({
 
 G:AddToggle({
 	Name = "Auto Farm",
-	Default = true,
+	Default = false,
     Flag = "Auto Farm",
     Save = true,
 	Callback = function(Value)
@@ -2743,6 +2743,18 @@ spawn(function()
         end
     end
 end)
+
+local PosList = {"15", "20", "25", "30"}
+S:AddDropdown({
+	Name = "Pos Y",
+	Default = "15",
+    Flag = "Pos Y",
+    Save = true,
+	Options = PosList,
+	Callback = function(Value)
+		PosY = Value
+	end    
+})
 
 S:AddToggle({
 	Name = "Auto Buso",
