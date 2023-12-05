@@ -609,20 +609,13 @@ function CheckQuest()
             NameMon = "Isle Outlaw"
             CFrameQuest = CFrame.new(-16545.9355, 55.6863556, -173.230499)
             CFrameMon = CFrame.new(-16120.6035, 116.520554, -103.038849)
-        elseif MyLevel == 2475 or MyLevel <= 2499 then
+        elseif MyLevel == 2475 or MyLevel <= 2524 then
             Mon = "Island Boy"
             LevelQuest = 2
             NameQuest = "TikiQuest1"
             NameMon = "Island Boy"
             CFrameQuest = CFrame.new(-16545.9355, 55.6863556, -173.230499)
             CFrameMon = CFrame.new(-16751.3125, 121.226219, -264.015015)
-        elseif MyLevel == 2500 or MyLevel <= 2524 then
-            Mon = "Sun-kissed Warrio"
-            LevelQuest = 1
-            NameQuest = "TikiQuest2"
-            NameMon = "Sun-kissed Warrio"
-            CFrameQuest = CFrame.new(-16539.078125, 55.68632888793945, 1051.5738525390625)
-            CFrameMon = CFrame.new(-16294.6748, 32.7874393, 1062.4856)
         elseif MyLevel >= 2525 then
             Mon = "Isle Champion"
             LevelQuest = 2
@@ -2535,6 +2528,12 @@ local G = Window:MakeTab({
 	PremiumOnly = false
 })
 
+local IQ = Window:MakeTab({
+	Name = "Items & Quest",
+	Icon = "rbxassetid://15541504459",
+	PremiumOnly = false
+})
+
 local S = Window:MakeTab({
 	Name = "Settings",
 	Icon = "rbxassetid://15541504459",
@@ -2629,7 +2628,7 @@ G:AddToggle({
 G:AddToggle({
 	Name = "Auto Dought King",
 	Default = false,
-    Flag = "Auto Dought",
+    Flag = "Auto Dought King",
     Save = true,
 	Callback = function(Value)
 		_G.AutoDoughtBoss = Value
@@ -2640,7 +2639,7 @@ G:AddToggle({
 G:AddToggle({
 	Name = "Auto Bone",
 	Default = false,
-    Flag = "Auto Dought",
+    Flag = "Auto Bone",
     Save = true,
 	Callback = function(Value)
 		_G.Auto_Bone = Value
@@ -2680,6 +2679,87 @@ G:AddToggle({
         StopTween(_G.AutoFactory)
 	end    
 })
+
+local Section = G:AddSection({
+	Name = "Observation Haki"
+})
+
+G:AddToggle({
+	Name = "Auto Observation Level",
+	Default = false,
+    Flag = "Auto Observation",
+    Save = true,
+	Callback = function(Value)
+		_G.AutoObservation = Value
+        StopTween(_G.AutoObservation)
+	end    
+})
+
+G:AddToggle({
+	Name = "Auto Observation(HOP)",
+	Default = false,
+    Flag = "Auto Observation Hop",
+    Save = true,
+	Callback = function(Value)
+		_G.AutoObservation_Hop = Value
+        StopTween(_G.AutoObservation_Hop)
+	end    
+})
+
+------// Item & Quest \\---------------------------
+
+IQ:AddParagraph("Boss Check","Check Boss , Boss spawn = ✅ else Boss not spawn = ❌")
+here = IQ:AddLabel("Saber Boss : ❌")
+here2 = IQ:AddLabel("Pole Boss : ❌")
+here3 = IQ:AddLabel("Jeremy Boss : ❌")
+
+local Section = IQ:AddSection({
+	Name = "Saber"
+})
+
+IQ:AddToggle({
+	Name = "Auto Saber",
+	Default = false,
+    Flag = "Auto Saber",
+    Save = true,
+	Callback = function(Value)
+		_G.Auto_Saber = Value
+        StopTween(_G.Auto_Saber)
+	end    
+})
+
+local Section = IQ:AddSection({
+	Name = "Pole"
+})
+
+IQ:AddToggle({
+	Name = "Auto Pole",
+	Default = false,
+    Flag = "Auto Pole",
+    Save = true,
+	Callback = function(Value)
+		_G.Autopole = Value
+        StopTween(_G.Autopole)
+	end    
+})
+
+local Section = IQ:AddSection({
+	Name = "Bartilo Quest"
+})
+
+IQ:AddToggle({
+	Name = "Auto Bartilo",
+	Default = false,
+    Flag = "Auto Bartilo",
+    Save = true,
+	Callback = function(Value)
+		_G.AutoBartilo = Value
+        StopTween(_G.AutoBartilo)
+	end    
+})
+
+
+
 
 
 
@@ -2795,7 +2875,7 @@ end)
 local PosList = {"15", "20", "25", "30"}
 S:AddDropdown({
 	Name = "Pos Y",
-	Default = "15",
+	Default = "30",
     Flag = "Pos Y",
     Save = true,
 	Options = PosList,
@@ -5727,6 +5807,56 @@ spawn(function()
     game:GetService("RunService").RenderStepped:Connect(function()
             game.Players.LocalPlayer.Character.Stun.Value = 0
             game.Players.LocalPlayer.Character.Busy.Value = false        
+    end)
+end)
+
+spawn(function()
+    while wait() do
+        pcall(function()
+            if game:GetService("ReplicatedStorage"):FindFirstChild("Saber Expert") or game:GetService("ReplicatedStorage"):FindFirstChild("Saber Expert") or game:GetService("ReplicatedStorage"):FindFirstChild("Saber Expert") or game:GetService("Workspace").Enemies:FindFirstChild("Saber Expert") or game:GetService("Workspace").Enemies:FindFirstChild("Saber Expert") or game:GetService("Workspace").Enemies:FindFirstChild("Saber Expert") then
+                here:Set("Saber Boss : ✅")
+            else
+                here:Set("Saber Boss : ❌")
+            end
+        end)
+    end
+end)
+
+spawn(function()
+    while wait() do
+        pcall(function()
+            if game:GetService("ReplicatedStorage"):FindFirstChild("Thunder God") or game:GetService("ReplicatedStorage"):FindFirstChild("Thunder God") or game:GetService("ReplicatedStorage"):FindFirstChild("Thunder God") or game:GetService("Workspace").Enemies:FindFirstChild("Thunder God") or game:GetService("Workspace").Enemies:FindFirstChild("Thunder God") or game:GetService("Workspace").Enemies:FindFirstChild("Thunder God") then
+                here2:Set("Pole Boss : ✅")
+            else
+                here2:Set("Pole Boss : ❌")
+            end
+        end)
+    end
+end)
+
+spawn(function()
+    while wait() do
+        pcall(function()
+            if game:GetService("ReplicatedStorage"):FindFirstChild("Jeremy") or game:GetService("ReplicatedStorage"):FindFirstChild("Jeremy") or game:GetService("ReplicatedStorage"):FindFirstChild("Jeremy") or game:GetService("Workspace").Enemies:FindFirstChild("Jeremy") or game:GetService("Workspace").Enemies:FindFirstChild("Jeremy") or game:GetService("Workspace").Enemies:FindFirstChild("Jeremy") then
+                here3:Set("Jeremy Boss : ✅")
+            else
+                here3:Set("Jeremy Boss : ❌")
+            end
+        end)
+    end
+end)
+
+_G.Remove_Effect = true
+
+spawn(function()
+    game:GetService('RunService').Stepped:Connect(function()
+        if _G.Remove_Effect then
+            for i, v in pairs(game:GetService("ReplicatedStorage").Effect.Container:GetChildren()) do
+                if v.Name == "Death" then
+                    v:Destroy() 
+                end
+            end
+        end
     end)
 end)
 
