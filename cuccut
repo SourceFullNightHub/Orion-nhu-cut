@@ -2637,6 +2637,17 @@ G:AddToggle({
 	end    
 })
 
+G:AddToggle({
+	Name = "Auto Bone",
+	Default = false,
+    Flag = "Auto Dought",
+    Save = true,
+	Callback = function(Value)
+		_G.Auto_Bone = Value
+        StopTween(_G.Auto_Bone)
+	end    
+})
+
 
 ------// Settings \\-------------------------------
 
