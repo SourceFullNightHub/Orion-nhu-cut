@@ -6092,6 +6092,8 @@ spawn(function()
                 if game:GetService("Workspace").Enemies:FindFirstChild("Shark") then
                     if v:FindFirstChild("Shark") and v.Humanoid.Health > 0 and v:FindFirstChild("HumanoidRootPart") then
                         repeat wait()
+                            game.Players.LocalPlayer.Character.Humanoid.Sit = false
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false          
                             AutoHaki()
                             EquipWeapon(_G.SelectWeapon)
                             v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
@@ -6112,6 +6114,8 @@ spawn(function()
                 if game:GetService("Workspace").Enemies:FindFirstChild("Terrorshark") then
                     if v:FindFirstChild("Terrorshark") and v.Humanoid.Health > 0 and v:FindFirstChild("HumanoidRootPart") then
                         repeat wait()
+                            game.Players.LocalPlayer.Character.Humanoid.Sit = false
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false          
                             AutoHaki()
                             EquipWeapon(_G.SelectWeapon)
                             v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
