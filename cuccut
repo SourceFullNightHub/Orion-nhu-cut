@@ -2648,6 +2648,42 @@ G:AddToggle({
 	end    
 })
 
+G:AddToggle({
+	Name = "Auto Elite",
+	Default = false,
+    Flag = "Auto Elite",
+    Save = true,
+	Callback = function(Value)
+		_G.AutoEliteHunter = Value
+        StopTween(_G.AutoEliteHunter)
+	end    
+})
+
+G:AddToggle({
+	Name = "Auto Raid Castle",
+	Default = false,
+    Flag = "Auto Raid Castle",
+    Save = true,
+	Callback = function(Value)
+		_G.RaidPirate = Value
+        StopTween(_G.RaidPirate)
+	end    
+})
+
+G:AddToggle({
+	Name = "Auto Factory",
+	Default = false,
+    Flag = "Auto Factory",
+    Save = true,
+	Callback = function(Value)
+		_G.AutoFactory = Value
+        StopTween(_G.AutoFactory)
+	end    
+})
+
+
+
+
 
 ------// Settings \\-------------------------------
 
