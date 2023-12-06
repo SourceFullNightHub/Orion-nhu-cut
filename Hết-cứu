@@ -2075,7 +2075,7 @@ function CheckItem(ah)
     end
 end
 --------// Code tự lm 100% \\-----------------------------
-_G.SelectWeapon == "Melee"
+_G.SelectWeapon = "Melee"
 task.spawn(function()
     while wait() do
         pcall(function()
