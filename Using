@@ -345,6 +345,7 @@ TextLabel_6.Text = "LMNGAMING"
 TextLabel_6.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextLabel_6.TextSize = 14.000
 
+_G.SetupTeam = true
 spawn(function()
 	while task.wait() do
 	if _G.SetupTeam then
@@ -452,8 +453,8 @@ spawn(function()
             end
             local CoreGui = game:GetService("StarterGui")
             CoreGui:SetCore("SendNotification", {
-                Title = "Night Hub",
-                Text = "Night Hub Auto Chest Version 2 is best Script!!!",
+                Title = "Night Hub | Chest Farm",
+                Text = "Subscribe To LMNGAMING",
                 Duration = math.huge,
                 Callback = AllowRunServiceBind,
             })
@@ -461,8 +462,8 @@ spawn(function()
     
         local CoreGui = game:GetService("StarterGui")
         CoreGui:SetCore("SendNotification", {
-            Title = "Night Hub",
-            Text = "Night Hub Auto Chest Version 2 is best Script!!!",
+            Title = "Night Hub | Chest Farm",
+            Text = "Subscribe To LMNGAMING",
             Duration = math.huge,
             Callback = AllowRunServiceBind,
         })
