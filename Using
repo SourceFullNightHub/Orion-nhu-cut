@@ -1,299 +1,564 @@
-# Orion Library
-This documentation is for the stable release of Orion Library.
+-- // Join \\----------------------
 
-## Booting the Library
-```lua
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-```
+if game.Players.LocalPlayer.PlayerGui.Main:FindFirstChild("ChooseTeam") then
+    for i, v in pairs(getconnections(game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Container["Team"].Frame.TextButton.Activated)) do
+        for a, b in pairs(getconnections(game:GetService("UserInputService").TouchTapInWorld)) do
+            b:Fire()
+        end
+        v.Function()
+    end
+end
+-- // Config \\ -----------------------
 
+if getgenv().config["Settings"]["Lite"] then
+    local decalsyeeted = true
+    local g = game
+    local w = g.Workspace
+    local l = g.Lighting
+    local t = w.Terrain
+    t.WaterWaveSize = 0
+    t.WaterWaveSpeed = 0
+    t.WaterReflectance = 0
+    t.WaterTransparency = 0
+    l.GlobalShadows = false
+    l.FogEnd = 9e9
+    l.Brightness = 0
+    settings().Rendering.QualityLevel = "Level01"
+    for i, v in pairs(g:GetDescendants()) do
+        if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
+            v.Material = "Plastic"
+            v.Reflectance = 0
+        elseif v:IsA("Decal") or v:IsA("Texture") and decalsyeeted then
+            v.Transparency = 1
+        elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+            v.Lifetime = NumberRange.new(0)
+        elseif v:IsA("Explosion") then
+            v.BlastPressure = 1
+            v.BlastRadius = 1
+        elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") or v:IsA("Sparkles") then
+            v.Enabled = false
+        elseif v:IsA("MeshPart") then
+            v.Material = "Plastic"
+            v.Reflectance = 0
+            v.TextureID = 10385902758728957
+        end
+    end
+    for i, e in pairs(l:GetChildren()) do
+        if
+            e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or
+                e:IsA("DepthOfFieldEffect")
+         then
+            e.Enabled = false
+        end
+    end
+end
 
+if getgenv().config["Auto Use"]["Race V3"] then
+    RaceV3 = true
+end
 
-## Creating a Window
-```lua
-local Window = OrionLib:MakeWindow({Name = "Title of the library", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+spawn(function()
+    while wait() do
+        if RaceV3 then
+            game:GetService("VirtualInputManager"):SendKeyEvent(true,"T",false,game)
+            wait(0.1)
+            game:GetService("VirtualInputManager"):SendKeyEvent(false,"T",false,game)
+        end
+    end
+end)
 
---[[
-Name = <string> - The name of the UI.
-HidePremium = <bool> - Whether or not the user details shows Premium status or not.
-SaveConfig = <bool> - Toggles the config saving in the UI.
-ConfigFolder = <string> - The name of the folder where the configs are saved.
-IntroEnabled = <bool> - Whether or not to show the intro animation.
-IntroText = <string> - Text to show in the intro animation.
-IntroIcon = <string> - URL to the image you want to use in the intro animation.
-Icon = <string> - URL to the image you want displayed on the window.
-CloseCallback = <function> - Function to execute when the window is closed.
-]]
-```
+-- Instances:
 
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local shadowHolder = Instance.new("Frame")
+local umbraShadow = Instance.new("ImageLabel")
+local penumbraShadow = Instance.new("ImageLabel")
+local ambientShadow = Instance.new("ImageLabel")
+local Frame_2 = Instance.new("Frame")
+local UICorner_2 = Instance.new("UICorner")
+local TextLabel = Instance.new("TextLabel")
+local UICorner_3 = Instance.new("UICorner")
+local UIStroke = Instance.new("UIStroke")
+local Frame_3 = Instance.new("Frame")
+local Frame_4 = Instance.new("Frame")
+local Frame_5 = Instance.new("Frame")
+local UICorner_4 = Instance.new("UICorner")
+local TextLabel_2 = Instance.new("TextLabel")
+local TextLabel_3 = Instance.new("TextLabel")
+local TextLabel_4 = Instance.new("TextLabel")
+local TextLabel_5 = Instance.new("TextLabel")
+local Frame_6 = Instance.new("Frame")
+local UICorner_5 = Instance.new("UICorner")
+local Stop = Instance.new("TextButton")
+local Tiep = Instance.new("TextButton")
+local Frame_7 = Instance.new("Frame")
+local Frame_8 = Instance.new("Frame")
+local UICorner_6 = Instance.new("UICorner")
+local UIStroke_2 = Instance.new("UIStroke")
+local ImageButton = Instance.new("ImageButton")
+local UICorner_7 = Instance.new("UICorner")
+local TextLabel_6 = Instance.new("TextLabel")
 
+-- Properties:
 
-## Creating a Tab
-```lua
-local Tab = Window:MakeTab({
-	Name = "Tab 1",
-	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
-})
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
---[[
-Name = <string> - The name of the tab.
-Icon = <string> - The icon of the tab.
-PremiumOnly = <bool> - Makes the tab accessible to Sirus Premium users only.
-]]
-```
-## Creating a Section
-```lua
-local Section = Tab:AddSection({
-	Name = "Section"
-})
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(0.273480654, 0, 0.146586344, 0)
+Frame.Size = UDim2.new(0, 308, 0, 305)
 
---[[
-Name = <string> - The name of the section.
-]]
-```
-You can add elements to sections the same way you would add them to a tab normally.
+UICorner.Parent = Frame
 
-## Notifying the user
-```lua
-OrionLib:MakeNotification({
-	Name = "Title!",
-	Content = "Notification content... what will it say??",
-	Image = "rbxassetid://4483345998",
-	Time = 5
-})
+shadowHolder.Name = "shadowHolder"
+shadowHolder.Parent = Frame
+shadowHolder.BackgroundTransparency = 1.000
+shadowHolder.Size = UDim2.new(1, 0, 1, 0)
+shadowHolder.ZIndex = 0
 
---[[
-Title = <string> - The title of the notification.
-Content = <string> - The content of the notification.
-Image = <string> - The icon of the notification.
-Time = <number> - The duration of the notfication.
-]]
-```
+umbraShadow.Name = "umbraShadow"
+umbraShadow.Parent = shadowHolder
+umbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+umbraShadow.BackgroundTransparency = 1.000
+umbraShadow.Position = UDim2.new(0.5, 0, 0.5, 6)
+umbraShadow.Size = UDim2.new(1, 10, 1, 10)
+umbraShadow.ZIndex = 0
+umbraShadow.Image = "rbxassetid://1316045217"
+umbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+umbraShadow.ImageTransparency = 0.860
+umbraShadow.ScaleType = Enum.ScaleType.Slice
+umbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
 
+penumbraShadow.Name = "penumbraShadow"
+penumbraShadow.Parent = shadowHolder
+penumbraShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+penumbraShadow.BackgroundTransparency = 1.000
+penumbraShadow.Position = UDim2.new(0.5, 0, 0.5, 6)
+penumbraShadow.Size = UDim2.new(1, 10, 1, 10)
+penumbraShadow.ZIndex = 0
+penumbraShadow.Image = "rbxassetid://1316045217"
+penumbraShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+penumbraShadow.ImageTransparency = 0.880
+penumbraShadow.ScaleType = Enum.ScaleType.Slice
+penumbraShadow.SliceCenter = Rect.new(10, 10, 118, 118)
 
+ambientShadow.Name = "ambientShadow"
+ambientShadow.Parent = shadowHolder
+ambientShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+ambientShadow.BackgroundTransparency = 1.000
+ambientShadow.Position = UDim2.new(0.5, 0, 0.5, 6)
+ambientShadow.Size = UDim2.new(1, 10, 1, 10)
+ambientShadow.ZIndex = 0
+ambientShadow.Image = "rbxassetid://1316045217"
+ambientShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+ambientShadow.ImageTransparency = 0.880
+ambientShadow.ScaleType = Enum.ScaleType.Slice
+ambientShadow.SliceCenter = Rect.new(10, 10, 118, 118)
 
-## Creating a Button
-```lua
-Tab:AddButton({
-	Name = "Button!",
-	Callback = function()
-      		print("button pressed")
-  	end    
-})
+Frame_2.Parent = Frame
+Frame_2.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Frame_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame_2.BorderSizePixel = 0
+Frame_2.Size = UDim2.new(0, 308, 0, 48)
 
---[[
-Name = <string> - The name of the button.
-Callback = <function> - The function of the button.
-]]
-```
+UICorner_2.Parent = Frame_2
 
+TextLabel.Parent = Frame_2
+TextLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.BorderSizePixel = 0
+TextLabel.Position = UDim2.new(0, 0, 0.020833334, 0)
+TextLabel.Size = UDim2.new(0, 308, 0, 47)
+TextLabel.Font = Enum.Font.SourceSansBold
+TextLabel.Text = "Night Hub Auto Chest"
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextSize = 18.000
 
-## Creating a Checkbox toggle
-```lua
-Tab:AddToggle({
-	Name = "This is a toggle!",
-	Default = false,
-	Callback = function(Value)
-		print(Value)
-	end    
-})
+UICorner_3.Parent = TextLabel
 
---[[
-Name = <string> - The name of the toggle.
-Default = <bool> - The default value of the toggle.
-Callback = <function> - The function of the toggle.
-]]
-```
+UIStroke.Color = Color3.fromRGB(255, 255, 255)
+UIStroke.Parent = Frame
 
-### Changing the value of an existing Toggle
-```lua
-CoolToggle:Set(true)
-```
+Frame_3.Parent = Frame
+Frame_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Frame_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame_3.BorderSizePixel = 0
+Frame_3.Position = UDim2.new(0, 0, 0.180327863, 0)
+Frame_3.Size = UDim2.new(0, 308, 0, 2)
 
+Frame_4.Parent = Frame
+Frame_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Frame_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame_4.BorderSizePixel = 0
+Frame_4.Position = UDim2.new(0, 0, 0.842622936, 0)
+Frame_4.Size = UDim2.new(0, 308, 0, 2)
 
+Frame_5.Parent = Frame
+Frame_5.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Frame_5.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame_5.BorderSizePixel = 0
+Frame_5.Position = UDim2.new(0, 0, 0.196721315, 0)
+Frame_5.Size = UDim2.new(0, 308, 0, 191)
 
-## Creating a Color Picker
-```lua
-Tab:AddColorpicker({
-	Name = "Colorpicker",
-	Default = Color3.fromRGB(255, 0, 0),
-	Callback = function(Value)
-		print(Value)
-	end	  
-})
+UICorner_4.Parent = Frame_5
 
---[[
-Name = <string> - The name of the colorpicker.
-Default = <color3> - The default value of the colorpicker.
-Callback = <function> - The function of the colorpicker.
-]]
-```
-
-### Setting the color picker's value
-```lua
-ColorPicker:Set(Color3.fromRGB(255,255,255))
-```
-
-
-## Creating a Slider
-```lua
-Tab:AddSlider({
-	Name = "Slider",
-	Min = 0,
-	Max = 20,
-	Default = 5,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "bananas",
-	Callback = function(Value)
-		print(Value)
-	end    
-})
-
---[[
-Name = <string> - The name of the slider.
-Min = <number> - The minimal value of the slider.
-Max = <number> - The maxium value of the slider.
-Increment = <number> - How much the slider will change value when dragging.
-Default = <number> - The default value of the slider.
-ValueName = <string> - The text after the value number.
-Callback = <function> - The function of the slider.
-]]
-```
-
-### Change Slider Value
-```lua
-Slider:Set(2)
-```
-Make sure you make your slider a variable (local CoolSlider = Tab:AddSlider...) for this to work.
-
-
-## Creating a Label
-```lua
-Tab:AddLabel("Label")
-```
-
-### Changing the value of an existing label
-```lua
-CoolLabel:Set("Label New!")
-```
-
-
-## Creating a Paragraph
-```lua
-Tab:AddParagraph("Paragraph","Paragraph Content")
-```
-
-### Changing an existing paragraph
-```lua
-CoolParagraph:Set("Paragraph New!", "New Paragraph Content!")
-```
-
-
-## Creating an Adaptive Input
-```lua
-Tab:AddTextbox({
-	Name = "Textbox",
-	Default = "default box input",
-	TextDisappear = true,
-	Callback = function(Value)
-		print(Value)
-	end	  
-})
-
---[[
-Name = <string> - The name of the textbox.
-Default = <string> - The default value of the textbox.
-TextDisappear = <bool> - Makes the text disappear in the textbox after losing focus.
-Callback = <function> - The function of the textbox.
-]]
-```
-
-
-## Creating a Keybind
-```lua
-Tab:AddBind({
-	Name = "Bind",
-	Default = Enum.KeyCode.E,
-	Hold = false,
-	Callback = function()
-		print("press")
-	end    
-})
-
---[[
-Name = <string> - The name of the bind.
-Default = <keycode> - The default value of the bind.
-Hold = <bool> - Makes the bind work like: Holding the key > The bind returns true, Not holding the key > Bind returns false.
-Callback = <function> - The function of the bind.
-]]
-```
-
-### Chaning the value of a bind
-```lua
-Bind:Set(Enum.KeyCode.E)
-```
+TextLabel_2.Parent = Frame_5
+TextLabel_2.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_2.BorderSizePixel = 0
+TextLabel_2.Position = UDim2.new(0, 0, -0.00121027115, 0)
+TextLabel_2.Size = UDim2.new(0, 308, 0, 50)
+TextLabel_2.Font = Enum.Font.SourceSansBold
+TextLabel_2.Text = "Client Use Time : 0H 0M 0S"
+TextLabel_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_2.TextSize = 14.000
 
 
-## Creating a Dropdown menu
-```lua
-Tab:AddDropdown({
-	Name = "Dropdown",
-	Default = "1",
-	Options = {"1", "2"},
-	Callback = function(Value)
-		print(Value)
-	end    
-})
+TextLabel_3.Parent = Frame_5
+TextLabel_3.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_3.BorderSizePixel = 0
+TextLabel_3.Position = UDim2.new(0, 0, 0.765835524, 0)
+TextLabel_3.Size = UDim2.new(0, 308, 0, 50)
+TextLabel_3.Font = Enum.Font.SourceSansBold
+TextLabel_3.Text = "Chest In Servers : 0"
+TextLabel_3.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_3.TextSize = 14.000
 
---[[
-Name = <string> - The name of the dropdown.
-Default = <string> - The default value of the dropdown.
-Options = <table> - The options in the dropdown.
-Callback = <function> - The function of the dropdown.
-]]
-```
 
-### Adding a set of new Dropdown buttons to an existing menu
-```lua
-Dropdown:Refresh(List<table>,true)
-```
+TextLabel_4.Parent = Frame_5
+TextLabel_4.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_4.BorderSizePixel = 0
+TextLabel_4.Position = UDim2.new(0, 0, 0.506963909, 0)
+TextLabel_4.Size = UDim2.new(0, 308, 0, 50)
+TextLabel_4.Font = Enum.Font.SourceSansBold
+TextLabel_4.Text = "Earned : 0"
+TextLabel_4.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_4.TextSize = 14.000
+local A = game.Players.LocalPlayer.Data.Beli.Value
+spawn(function()
+	while task.wait(0.001) do
+		TextLabel_4.Text = "Earned : " .. (game.Players.LocalPlayer.Data.Beli.Value - A)
+	end
+end)
 
-The above boolean value "true" is whether or not the current buttons will be deleted.
-### Selecting a dropdown option
-```lua
-Dropdown:Set("dropdown option")
-```
+TextLabel_5.Parent = Frame_5
+TextLabel_5.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_5.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_5.BorderSizePixel = 0
+TextLabel_5.Position = UDim2.new(0, 0, 0.272967428, 0)
+TextLabel_5.Size = UDim2.new(0, 308, 0, 50)
+TextLabel_5.Font = Enum.Font.SourceSansBold
+TextLabel_5.Text = "Total Earned : 0"
+TextLabel_5.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_5.TextSize = 14.000
 
-# Finishing your script (REQUIRED)
-The below function needs to be added at the end of your code.
-```lua
-OrionLib:Init()
-```
 
-### How flags work.
-The flags feature in the ui may be confusing for some people. It serves the purpose of being the ID of an element in the config file, and makes accessing the value of an element anywhere in the code possible.
-Below in an example of using flags.
-```lua
-Tab1:AddToggle({
-    Name = "Toggle",
-    Default = true,
-    Save = true,
-    Flag = "toggle"
-})
+Frame_6.Parent = Frame
+Frame_6.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Frame_6.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame_6.BorderSizePixel = 0
+Frame_6.Position = UDim2.new(0, 0, 0.849180341, 0)
+Frame_6.Size = UDim2.new(0, 308, 0, 46)
 
-print(OrionLib.Flags["toggle"].Value) -- prints the value of the toggle.
-```
-Flags only work with the toggle, slider, dropdown, bind, and colorpicker.
+UICorner_5.Parent = Frame_6
 
-### Making your interface work with configs.
-In order to make your interface use the configs function you first need to add the `SaveConfig` and `ConfigFolder` arguments to your window function. The explanation of these arguments in above.
-Then you need to add the `Flag` and `Save` values to every toggle, slider, dropdown, bind, and colorpicker you want to include in the config file.
-The `Flag = <string>` argument is the ID of an element in the config file.
-The `Save = <bool>` argument includes the element in the config file.
-Config files are made for every game the library is launched in.
+Stop.Name = "Stop"
+Stop.Parent = Frame_6
+Stop.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Stop.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Stop.BorderSizePixel = 0
+Stop.Position = UDim2.new(0, 0, 0.0652173907, 0)
+Stop.Size = UDim2.new(0, 142, 0, 39)
+Stop.Style = Enum.ButtonStyle.RobloxButton
+Stop.Font = Enum.Font.SourceSansBold
+Stop.Text = "Stop Farm Chest"
+Stop.TextColor3 = Color3.fromRGB(255, 255, 255)
+Stop.TextSize = 14.000
+Stop.MouseButton1Down:Connect(function()
+    AllowRunService = false
+    _G.SetupTeam = false
+end)
 
-## Destroying the Interface
-```lua
-OrionLib:Destroy()
-```
+Tiep.Name = "Tiep"
+Tiep.Parent = Frame_6
+Tiep.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Tiep.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Tiep.BorderSizePixel = 0
+Tiep.Position = UDim2.new(0.538961053, 0, 0.0652173907, 0)
+Tiep.Size = UDim2.new(0, 142, 0, 39)
+Tiep.Style = Enum.ButtonStyle.RobloxButton
+Tiep.Font = Enum.Font.SourceSansBold
+Tiep.Text = "Start Farm Chest"
+Tiep.TextColor3 = Color3.fromRGB(255, 255, 255)
+Tiep.TextSize = 14.000
+Tiep.MouseButton1Down:Connect(function()
+    AllowRunService = true
+    _G.SetupTeam = true
+end)
+
+Frame_7.Parent = Frame_6
+Frame_7.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Frame_7.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame_7.BorderSizePixel = 0
+Frame_7.Position = UDim2.new(0.496753246, 0, -0.0217391308, 1)
+Frame_7.Size = UDim2.new(0, 2, 0, 46)
+
+Frame_8.Parent = ScreenGui
+Frame_8.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Frame_8.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame_8.BorderSizePixel = 0
+Frame_8.Position = UDim2.new(0.108655617, 0, 0.126506031, 0)
+Frame_8.Size = UDim2.new(0, 127, 0, 70)
+
+UICorner_6.Parent = Frame_8
+
+UIStroke_2.Color = Color3.fromRGB(255, 255, 255)
+UIStroke_2.Parent = Frame_8
+
+ImageButton.Parent = Frame_8
+ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.BorderSizePixel = 0
+ImageButton.Position = UDim2.new(0, 0, 0.142857149, 0)
+ImageButton.Size = UDim2.new(0, 50, 0, 50)
+ImageButton.Image = "http://www.roblox.com/asset/?id=15016024210"
+ImageButton.MouseButton1Down:Connect(function()
+    setclipboard(tostring("https://www.youtube.com/channel/UCPSmmo_tY-OeoShGPNRgSBA"))
+end)
+
+UICorner_7.Parent = ImageButton
+
+TextLabel_6.Parent = Frame_8
+TextLabel_6.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_6.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_6.BorderSizePixel = 0
+TextLabel_6.Position = UDim2.new(0.44094488, 0, 0.314285725, 0)
+TextLabel_6.Size = UDim2.new(0, 71, 0, 24)
+TextLabel_6.Font = Enum.Font.SourceSansBold
+TextLabel_6.Text = "LMNGAMING"
+TextLabel_6.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_6.TextSize = 14.000
+
+spawn(function()
+	while task.wait() do
+	if _G.SetupTeam then
+			local ohString1 = "SetTeam"
+			local ohString2 = "Pirates"
+			game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(ohString1, ohString2)
+    end
+	end
+	end)
+    function thisCode()
+        repeat task.wait() until game:IsLoaded()
+        local PlaceID = game.PlaceId
+        local AllIDs = {}
+        local foundAnything = ""
+        local actualHour = os.date("!*t").hour
+        local Deleted = false
+        local File = pcall(function()
+            AllIDs = game:GetService('HttpService'):JSONDecode(readfile("NotSameServers.json"))
+        end)
+        if not File then
+            table.insert(AllIDs, actualHour)
+            writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+        end
+        function TPReturner()
+            local Site;
+            if foundAnything == "" then
+                Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100'))
+            else
+                Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100&cursor=' .. foundAnything))
+            end
+            local ID = ""
+            if Site.nextPageCursor and Site.nextPageCursor ~= "null" and Site.nextPageCursor ~= nil then
+                foundAnything = Site.nextPageCursor
+            end
+            local num = 0;
+            for i,v in pairs(Site.data) do
+                local Possible = true
+                ID = tostring(v.id)
+                if tonumber(v.maxPlayers) > tonumber(v.playing) then
+                    for _,Existing in pairs(AllIDs) do
+                        if num ~= 0 then
+                            if ID == tostring(Existing) then
+                                Possible = false
+                            end
+                        else
+                            if tonumber(actualHour) ~= tonumber(Existing) then
+                                local delFile = pcall(function()
+                                    delfile("NotSameServers.json")
+                                    AllIDs = {}
+                                    table.insert(AllIDs, actualHour)
+                                end)
+                            end
+                        end
+                        num = num + 1
+                    end
+                    if Possible == true then
+                        table.insert(AllIDs, ID)
+                        wait()
+                        pcall(function()
+                            writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+                            wait()
+                            game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
+                        end)
+                        wait(4)
+                    end
+                end
+            end
+        end
+        
+        function Teleport()
+            while wait() do
+                pcall(function()
+                    TPReturner()
+                    if foundAnything ~= "" then
+                        TPReturner()
+                    end
+                end)
+            end
+        end
+        local veryImportantWaitTime = 0.5
+        task.spawn(function()
+            while task.wait(veryImportantWaitTime) do
+                pcall(function()
+                    for i,v in pairs(game.CoreGui:GetDescendants()) do
+                        pcall(function()
+                            if string.find(v.Name,"ErrorMessage") then
+                                if string.find(v.Text,"Security kick") then
+                                    veryImportantWaitTime = 1e9
+                                    Teleport()
+                                end
+                            end
+                        end)
+                    end
+                end)
+            end
+        end)
+    
+        local AllowRunService = true
+        local AllowRunServiceBind = Instance.new("BindableFunction")
+        function AllowRunServiceBind.OnInvoke(args)
+            if args == "Enable" then
+                AllowRunService = true
+            elseif args == "Disable" then
+                AllowRunService = false
+            end
+            local CoreGui = game:GetService("StarterGui")
+            CoreGui:SetCore("SendNotification", {
+                Title = "Night Hub",
+                Text = "Night Hub Auto Chest Version 2 is best Script!!!",
+                Duration = math.huge,
+                Callback = AllowRunServiceBind,
+            })
+        end
+    
+        local CoreGui = game:GetService("StarterGui")
+        CoreGui:SetCore("SendNotification", {
+            Title = "Night Hub",
+            Text = "Night Hub Auto Chest Version 2 is best Script!!!",
+            Duration = math.huge,
+            Callback = AllowRunServiceBind,
+        })
+        
+        task.spawn(function()
+            while true do
+                if AllowRunService == true then
+                    local hasChar = game.Players.LocalPlayer:FindFirstChild("Character")
+                    if not game.Players.LocalPlayer.Character then
+            
+                    else
+                        local hasCrewTag = game.Players.LocalPlayer.Character:FindFirstChild("CrewBBG",true)
+                        if hasCrewTag then hasCrewTag:Destroy() end
+                        local hasHumanoid = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+                        if hasHumanoid then
+                            local Chest = game.Workspace:FindFirstChild("Chest4") or game.Workspace:FindFirstChild("Chest3") or game.Workspace:FindFirstChild("Chest2") or game.Workspace:FindFirstChild("Chest1") or game.Workspace:FindFirstChild("Chest")
+                            
+                            if Chest then
+                                game.Players.LocalPlayer.Character:PivotTo(Chest:GetPivot())
+                                firesignal(Chest.Touched,game.Players.LocalPlayer.Character.HumanoidRootPart)
+                            else
+                                Teleport()
+                                break
+                            end
+                        end 
+                    end
+                end
+                task.wait()
+            end
+        end)
+    
+    end
+
+    spawn(function()
+        while wait() do
+        for i,v in pairs(game.Players:GetPlayers()) do
+            if v.Name == "red_game43" or v.Name == "rip_indra" or v.Name == "Axiore" or v.Name == "Polkster" or v.Name == "wenlocktoad" or v.Name == "Daigrock" or v.Name == "toilamvidamme" or v.Name == "oofficialnoobie" or v.Name == "Uzoth" or v.Name == "Azarth" or v.Name == "arlthmetic" or v.Name == "Death_King" or v.Name == "Lunoven" or v.Name == "TheGreateAced" or v.Name == "rip_fud" or v.Name == "drip_mama" or v.Name == "layandikit12" or v.Name == "Hingoi" then
+                Hop()
+                end
+            end
+        end
+    end)
+
+    spawn(function()
+        while wait() do
+        if getgenv().config["Settings"]["Stop When Have God's Chaile"] then
+            if game.Players.LocalPlayer.Backpack:FindFirstChild("God's Chalice") or game.Players.LocalPlayer.Character:FindFirstChild("God's Chalice") then
+                AllowRunService = false
+                _G.SetupTeam = false
+                end
+            end
+        end
+    end)
+
+    spawn(function()
+        while wait() do
+        if getgenv().config["Settings"]["Stop When Have Dark Key"] then
+            if game.Players.LocalPlayer.Backpack:FindFirstChild("Fist of Darkness") or game.Players.LocalPlayer.Character:FindFirstChild("Fist of Darkness") then
+                AllowRunService = false
+                _G.SetupTeam = false
+                end
+            end
+        end
+    end)
+
+    thisCode()
+
+    join = game.Players.localPlayer.Neutral == false
+    if _G.Team == nil then
+        _G.Team = "Pirates"
+    end
+    _G.Team = "Marines"
+    if (_G.Team == "Pirates" or _G.Team == "Marines") and not join then
+        repeat wait()
+            pcall(function()
+                join = game.Players.localPlayer.Neutral == false
+                if _G.Team == "Pirates" then
+                    for i,v in pairs({"MouseButton1Click", "MouseButton1Down", "Activated"}) do
+                        for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.ViewportFrame.TextButton[v])) do
+                            v.Function()
+                        end
+                    end
+                elseif _G.Team == "Marines" then
+                    for i,v in pairs({"MouseButton1Click", "MouseButton1Down", "Activated"}) do
+                        for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Container.Marines.Frame.ViewportFrame.TextButton[v])) do
+                            v.Function()
+                        end
+                    end
+                else
+                    for i,v in pairs({"MouseButton1Click", "MouseButton1Down", "Activated"}) do
+                        for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Container.Marines.Frame.ViewportFrame.TextButton[v])) do
+                            v.Function()
+                        end
+                    end
+                end
+            end)
+        until join == true
+        game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Visible = true
+    end
