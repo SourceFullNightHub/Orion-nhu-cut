@@ -8,6 +8,19 @@ else
     game:GetService("Players").LocalPlayer:Kick("Do not Support, Please wait...")
 end
 
+if game.Players.LocalPlayer.PlayerGui.Main:FindFirstChild("ChooseTeam") then
+    for i, v in pairs(
+        getconnections(
+            game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.TextButton.Activated
+        )
+    ) do
+        for a, b in pairs(getconnections(game:GetService("UserInputService").TouchTapInWorld)) do
+            b:Fire()
+        end
+        v.Function()
+    end
+end
+
 function CheckQuest() 
     MyLevel = game:GetService("Players").LocalPlayer.Data.Level.Value
     if World1 then
@@ -2553,6 +2566,7 @@ local Section = I:AddSection({
 ----// Info \\--------------------------------------------
 
 I:AddLabel("Owner : LMNGAMING")
+I:AddLabel("My Brothers : T..., Hirimii, Teru")
 I:AddLabel("Dev : Jacker, I am so sad")
 I:AddLabel("Version : Release V3")
 I:AddLabel("Youtube : LMNGAMING")
@@ -2632,7 +2646,7 @@ G:AddToggle({
 })
 
 G:AddToggle({
-	Name = "Auto Dought King",
+	Name = "Auto Cake Prince",
 	Default = false,
     Flag = "Auto Dought King",
     Save = true,
@@ -2848,7 +2862,7 @@ local Section = SE:AddSection({
 
 SE:AddToggle({
 	Name = "Auto Shark",
-	Default = true,
+	Default = false,
     Flag = "Auto Shark",
     Save = true,
 	Callback = function(Value)
@@ -2859,7 +2873,7 @@ SE:AddToggle({
 
 SE:AddToggle({
 	Name = "Auto Terror Shark",
-	Default = true,
+	Default = false,
     Flag = "Auto Shark",
     Save = true,
 	Callback = function(Value)
@@ -4598,26 +4612,14 @@ spawn(function()
       local boneframe = CFrame.new(-9508.5673828125, 142.1398468017578, 5737.3603515625)
         if _G.Auto_Bone and World3 then
             pcall(function()
-                  if BypassTP then
-                  if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - boneframe.Position).Magnitude > 2000 then
-                  BTP(boneframe)
-                  wait(.1)
-                  game.Players.localPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-9515.3720703125, 164.00624084473, 5786.0610351562)
-      game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("SetSpawnPoint")			
-                  wait(.1)
-                  game.Players.localPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-9515.3720703125, 164.00624084473, 5786.0610351562)
-          game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("SetSpawnPoint")					
-                  wait(.1)
-                  game.Players.localPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-9515.3720703125, 164.00624084473, 5786.0610351562)
-                  wait(.1)
-                  game.Players.localPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-9515.3720703125, 164.00624084473, 5786.0610351562)
-                  wait(3)
-                  elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - boneframe.Position).Magnitude < 2000 then
-                  TP1(boneframe)
-                  end
-                  else
-                    TP1(boneframe)
-                  end
+                if BypassTP then
+                    if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - boneframe.Position).Magnitude > 2000 then
+                        BTP(boneframe)
+                        for _,i = 8 do
+                            game.Players.localPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-9515.3720703125, 164.00624084473, 5786.0610351562)
+                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("SetSpawnPoint")	
+                        end
+                    end
                 if game:GetService("Workspace").Enemies:FindFirstChild("Reborn Skeleton") or game:GetService("Workspace").Enemies:FindFirstChild("Living Zombie") or game:GetService("Workspace").Enemies:FindFirstChild("Demonic Soul") or game:GetService("Workspace").Enemies:FindFirstChild("Posessed Mummy") then
                     for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                         if v.Name == "Reborn Skeleton" or v.Name == "Living Zombie" or v.Name == "Demonic Soul" or v.Name == "Posessed Mummy" then
@@ -4702,30 +4704,6 @@ spawn(function()
     end
 end
 end)
-
-spawn(function()
-pcall(function()
-    while wait() do
-        if _G.AutoEliteHunter then
-            if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true then
-                OrionLib:MakeNotification({
-                    Name = "Night Hub(Noitification)",
-                    Content = "[EN] : Please cancel the farrm level quest (if any)",
-                    Image = "rbxassetid://4483345998",
-                    Time = 9
-                })
-                OrionLib:MakeNotification({
-                    Name = "Night Hub(Noitification)",
-                    Content = "[VN] : Làm ơn hủy nhiệm vụ farrm level(nếu có)",
-                    Image = "rbxassetid://4483345998",
-                    Time = 9
-                })
-            end
-        end
-    end
-end)
-end)
-
 spawn(function()
     while wait() do
         pcall(function()
@@ -5395,7 +5373,6 @@ spawn(function()
         end
     end
 end)
-
 local PolePos = CFrame.new(-7748.0185546875, 5606.80615234375, -2305.898681640625)
 spawn(function()
 while wait() do
@@ -5443,17 +5420,15 @@ while wait() do
     end
 end
 end)
-
 spawn(function()
-        while wait() do
-            if _G.Autopolehop and _G.Autopole then
-                if not string.find(game:GetService("Workspace").Enemies:FindFirstChild("Thunder God")) then
-                        Hop()
-                end
+    while wait() do
+        if _G.Autopolehop and _G.Autopole then
+            if not string.find(game:GetService("Workspace").Enemies:FindFirstChild("Thunder God")) then
+                    Hop()
             end
         end
-    end)
-
+    end
+end)
 spawn(function()
     pcall(function()
         while wait() do
@@ -5466,8 +5441,6 @@ spawn(function()
         end
     end)
 end)
-
-
 spawn(function()
     pcall(function()
         while wait(.1) do
@@ -5556,7 +5529,6 @@ spawn(function()
         end
     end)
 end)
-
 spawn(function()
     pcall(function()
         while wait() do
@@ -5569,7 +5541,6 @@ spawn(function()
         end
     end)
 end)
-
 spawn(function()
     while task.wait() do
         pcall(function()
@@ -5797,122 +5768,12 @@ spawn(function()
         end)
     end
 end)     
-
-spawn(function()
-    while wait() do
-        pcall(function()
-            if string.len(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner")) == 88 then
-                KillMob = (tonumber(string.sub(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"),39,41)) - 500)
-            elseif string.len(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner")) == 87 then
-                KillMob = (tonumber(string.sub(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"),40,41)) - 500)
-            elseif string.len(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner")) == 86 then
-                KillMob = (tonumber(string.sub(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"),41,41)) - 500)
-            end
-        end)
-    end
-end)
-
-local PosMonCake = CFrame.new(-2091.911865234375, 70.00884246826172, -12142.8359375)
-local PosDought = CFrame.new(-2091.911865234375, 70.00884246826172, -12142.8359375)
-spawn(function()
-    while wait() do
-        if _G.AutoDoughtBoss then
-            pcall(function()
-                if game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince") then
-                    for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                        if v.Name == "Cake Prince" then
-                            if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                repeat task.wait()
-                                    AutoHaki()
-                                    EquipWeapon(_G.SelectWeapon)
-                                    v.HumanoidRootPart.CanCollide = false
-                                    v.Humanoid.WalkSpeed = 0
-                                    v.HumanoidRootPart.Size = Vector3.new(80,80,80)
-                                    topos(v.HumanoidRootPart.CFrame * CFrame.new(PosX,PosY,PosZ))
-                                    game:GetService("VirtualUser"):CaptureController()
-                                    game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
-                                    sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.huge)
-                                until not _G.AutoDoughtBoss or not v.Parent or v.Humanoid.Health <= 0
-                            end
-                        end
-                    end
-                else
-                    if game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince") then
-                        topos(game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
-                    else
-                        if KillMob == 0 then
-                        end
-                        if game:GetService("Workspace").Map.CakeLoaf.BigMirror.Other.Transparency == 1 then
-                            if game:GetService("Workspace").Enemies:FindFirstChild("Cookie Crafter") or game:GetService("Workspace").Enemies:FindFirstChild("Cake Guard") or game:GetService("Workspace").Enemies:FindFirstChild("Baking Staff") or game:GetService("Workspace").Enemies:FindFirstChild("Head Baker") then
-                                for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                                    if v.Name == "Cookie Crafter" or v.Name == "Cake Guard" or v.Name == "Baking Staff" or v.Name == "Head Baker" then
-                                        if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                                            repeat task.wait()
-                                                AutoHaki()
-                                                EquipWeapon(_G.SelectWeapon)
-                                                v.HumanoidRootPart.CanCollide = false
-                                                v.Humanoid.WalkSpeed = 0
-                                                v.Head.CanCollide = false 
-                                                v.HumanoidRootPart.Size = Vector3.new(80,80,80)
-                                                MagnetDought = true
-                                                PosMonDoughtOpenDoor = v.HumanoidRootPart.CFrame
-                                                topos(v.HumanoidRootPart.CFrame * Pos)
-                                                game:GetService("VirtualUser"):CaptureController()
-                                                game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
-                                            until not _G.AutoDoughtBoss or not v.Parent or v.Humanoid.Health <= 0 or game:GetService("Workspace").Map.CakeLoaf.BigMirror.Other.Transparency == 0 or game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince") or game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince") or KillMob == 0
-                                        end
-                                    end
-                                end
-                            else
-                                MagnetDought = false
-                                if BypassTP then
-                                    if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - PosMonCake.Position).Magnitude > 1500 then
-                                    BTP(PosMonCake)
-                                    elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - PosMonCake.Position).Magnitude < 1500 then
-                                    topos(PosMonCake)
-                                    end
-                                else
-                                    topos(PosMonCake)
-                                end
-                                if game:GetService("ReplicatedStorage"):FindFirstChild("Cookie Crafter") then
-                                    topos(game:GetService("ReplicatedStorage"):FindFirstChild("Cookie Crafter").HumanoidRootPart.CFrame * CFrame.new(2,20,2)) 
-                                else
-                                    if game:GetService("ReplicatedStorage"):FindFirstChild("Cake Guard") then
-                                        topos(game:GetService("ReplicatedStorage"):FindFirstChild("Cake Guard").HumanoidRootPart.CFrame * CFrame.new(2,20,2)) 
-                                    else
-                                        if game:GetService("ReplicatedStorage"):FindFirstChild("Baking Staff") then
-                                            topos(game:GetService("ReplicatedStorage"):FindFirstChild("Baking Staff").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
-                                        else
-                                            if game:GetService("ReplicatedStorage"):FindFirstChild("Head Baker") then
-                                                topos(game:GetService("ReplicatedStorage"):FindFirstChild("Head Baker").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
-                                            end
-                                        end
-                                    end
-                                end                       
-                            end
-                        else
-                            if game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince") then
-                                topos(game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
-                            else
-                                if game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince") then
-                                    topos(game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
-                                end
-                            end
-                        end
-                    end
-                end
-            end)
-        end
-    end
-end)
-
 spawn(function()
     game:GetService("RunService").RenderStepped:Connect(function()
-            game.Players.LocalPlayer.Character.Stun.Value = 0
-            game.Players.LocalPlayer.Character.Busy.Value = false        
+        game.Players.LocalPlayer.Character.Stun.Value = 0
+        game.Players.LocalPlayer.Character.Busy.Value = false        
     end)
 end)
-
 spawn(function()
     while wait() do
         pcall(function()
@@ -6034,7 +5895,6 @@ spawn(function()
         end)
     end
 end)
-
 spawn(function()
     while wait() do
         pcall(function()
@@ -6054,7 +5914,6 @@ spawn(function()
         end)
     end
 end)
-
 spawn(function()
     while wait() do
         pcall(function()
@@ -6090,13 +5949,12 @@ spawn(function()
         if _G.SharkBulon then
             for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                 if game:GetService("Workspace").Enemies:FindFirstChild("Shark") then
-                    if v:FindFirstChild("Shark") and v.Humanoid.Health > 0 and v:FindFirstChild("HumanoidRootPart") then
+                    if v:FindFirstChild("Shark") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                         repeat wait()
                             game.Players.LocalPlayer.Character.Humanoid.Sit = false
                             game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false          
                             AutoHaki()
                             EquipWeapon(_G.SelectWeapon)
-                            v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
                             topos(v.HumanoidRootPart.CFrame * CFrame.new(2,40,2))
                             Click()
                         until not _G.SharkBulon or v.Humanoid.Health <= 0 or not v:FindFirstChild("HumanoidRootPart")
@@ -6106,45 +5964,26 @@ spawn(function()
         end
     end
 end)
-
 spawn(function()
     while wait() do
         if _G.TerrorSharkBulon then
             for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                 if game:GetService("Workspace").Enemies:FindFirstChild("Terrorshark") then
-                    if v:FindFirstChild("Terrorshark") and v.Humanoid.Health > 0 and v:FindFirstChild("HumanoidRootPart") then
+                    if v:FindFirstChild("Terrorshark") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                         repeat wait()
                             game.Players.LocalPlayer.Character.Humanoid.Sit = false
                             game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false          
                             AutoHaki()
                             EquipWeapon(_G.SelectWeapon)
-                            v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
                             topos(v.HumanoidRootPart.CFrame * CFrame.new(2,40,2))
                             Click()
-                        until not _G.SharkBulon or v.Humanoid.Health <= 0 or not v:FindFirstChild("HumanoidRootPart")
+                        until not _G.TerrorSharkBulon or v.Humanoid.Health <= 0 or not v:FindFirstChild("HumanoidRootPart")
                     end
                 end
             end
         end
     end
 end)
-                            
-
-_G.Remove_Effect = true
-
-spawn(function()
-    game:GetService('RunService').Stepped:Connect(function()
-        if _G.Remove_Effect then
-            for i, v in pairs(game:GetService("ReplicatedStorage").Effect.Container:GetChildren()) do
-                if v.Name == "Death" then
-                    v:Destroy() 
-                end
-            end
-        end
-    end)
-end)
-
-
-Notify("Loading function complete", 5)
+Notify("Loaded Features Complete", 5)
 OrionLib:Init()
-Notify("Loading Config complete", 5)
+Notify("Loaded Workspace Save Complete", 5)
