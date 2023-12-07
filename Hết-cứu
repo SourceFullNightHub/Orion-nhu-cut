@@ -463,71 +463,93 @@ function safe_cp(p)
     --p.Character:WaitForChild("Head")
 end
 
+pathfile = "Night Hub/Blox Fruit/Auto Bounty"
+pathfile2 = "Night Hub/Blox Fruit/Auto Bounty/" .. lp.Name .. ".json"
+pathfile3 = "Night Hub/Blox Fruit/Auto Bounty/Themes"
+function deploy()
+    if not isfolder(pathfile) then
+        makefolder(pathfile)
+    end
+    if not isfolder(pathfile3) then
+        makefolder(pathfile3)
+    end
+    if not isfile(pathfile2) then
+        writefile(pathfile2, "{}")
+    end
+    celes = HttpService:JSONDecode(readfile(pathfile2))
+    celes2 = HttpService:JSONDecode(readfile(pathfile2))
+end
+deploy()
+
+if not celes["Client_Eslaped"] then
+    celes = {
+        Client_Eslaped = 0,
+        Total_Earned = 0
+    }
+end
+celes2 = {
+    Client_Eslaped = celes.Client_Eslaped,
+    Total_Earned = celes.Total_Earned
+}
+
+function disp_time(time)
+    time = tonumber(time)
+    if not time then
+        return "[err]"
+    end
+    local days = math.floor(time / 86400)
+    local hours = math.floor(math.fmod(time, 86400) / 3600)
+    local minutes = math.floor(math.fmod(time, 3600) / 60)
+    local seconds = math.floor(math.fmod(time, 60))
+    return (days .. "day, " .. hours .. "hrs, " .. minutes .. "min, " .. seconds .. "s")
+end
+
+function save()
+    a999 = celes2.Total_Earned
+    celes.Total_Earned = a999 + tonumber(lp.leaderstats["Bounty/Honor"].Value - oldbty2)
+    celes.Client_Eslaped = celes2.Client_Eslaped + (os.time() - a000000009)
+
+    TextLabel_4.Text = [[Total Earned: ]] .. celes.Total_Earned
+    Time.Text = [[Client Time Eslaped: ]] .. disp_time(celes.Client_Eslaped)
+    local a0 = HttpService:JSONEncode(celes)
+    writefile(pathfile2, a0)
+end
+
 function noti(a, b, c)
     print("[Night Hub Notify]", a, b)
 end
 
-function HopServer2()
-    local PlaceID = game.PlaceId
-    local AllIDs = {}
-    local foundAnything = ""
-    local actualHour = os.date("!*t").hour
-    local Deleted = false
-    function TPReturner()
-        local Site;
-        if foundAnything == "" then
-            Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100'))
-        else
-            Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100&cursor=' .. foundAnything))
-        end
-        local ID = ""
-        if Site.nextPageCursor and Site.nextPageCursor ~= "null" and Site.nextPageCursor ~= nil then
-            foundAnything = Site.nextPageCursor
-        end
-        local num = 0;
-        for i,v in pairs(Site.data) do
-            local Possible = true
-            ID = tostring(v.id)
-            if tonumber(v.maxPlayers) > tonumber(v.playing) then
-                for _,Existing in pairs(AllIDs) do
-                    if num ~= 0 then
-                        if ID == tostring(Existing) then
-                            Possible = false
-                        end
-                    else
-                        if tonumber(actualHour) ~= tonumber(Existing) then
-                            local delFile = pcall(function()
-                                AllIDs = {}
-                                table.insert(AllIDs, actualHour)
-                            end)
-                        end
-                    end
-                    num = num + 1
-                end
-                if Possible == true then
-                    table.insert(AllIDs, ID)
-                    wait()
-                    pcall(function()
-                        wait()
-                        game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
-                    end)
-                    wait(4)
-                end
+local bM = {}
+
+local HttpService = game:GetService("HttpService")
+local bN = "ServerCache"
+function SaveSettings2()
+    local HttpService = game:GetService("HttpService")
+    if not isfolder("Night Hub/Cache/") then
+        makefolder("Night Hub/Cache/")
+    end
+    writefile("Night Hub/Cache/" .. bN, HttpService:JSONEncode(bM))
+end
+function ReadSetting2()
+    local s, o =
+        pcall(
+        function()
+            local HttpService = game:GetService("HttpService")
+            Hub = game:GetService("HttpService")
+            if not isfolder("Night Hub/Cache/") then
+                makefolder("Night Hub/Cache/")
             end
+            return HttpService:JSONDecode(readfile("Night Hub/Cache/" .. bN))
         end
+    )
+    if s then
+        return o
+    else
+        SaveSettings2()
+        return ReadSetting2()
     end
-    function Teleport() 
-        while wait() do
-            pcall(function()
-                TPReturner()
-                if foundAnything ~= "" then
-                    TPReturner()
-                end
-            end)
-        end
-    end
-    Teleport()
-end       
+end
+bM = ReadSetting2()
 
 function HopServer(bO)
     -- noti("Hop", "9999")
@@ -555,6 +577,7 @@ function HopServer(bO)
                 if k ~= game.JobId and v["Count"] < bO then
                     if not bM[k] or tick() - bM[k].Time > 60 * 10 then
                         bM[k] = {Time = tick()}
+                        SaveSettings2()
                         if game:GetService("Players").LocalPlayer.PlayerGui.Main.InCombat.Visible then
                             noti("Wait For End InCombat", 15)
                             repeat
@@ -563,7 +586,7 @@ function HopServer(bO)
                             until not check11()
                         else
                         end
-                        HopServer2()
+                        game:GetService("ReplicatedStorage").__ServerBrowser:InvokeServer("teleport", k)
                         return true
                     elseif tick() - bM[k].Time > 60 * 60 then
                         bM[k] = nil
@@ -579,6 +602,7 @@ function HopServer(bO)
                 if v.Visible then
                     if v.TitleFrame.ErrorTitle.Text == "Teleport Failed" then
                         HopServer()
+                        v.Visible = false
                     end
                 end
                 v:GetPropertyChangedSignal("Visible"):Connect(
@@ -586,6 +610,7 @@ function HopServer(bO)
                         if v.Visible then
                             if v.TitleFrame.ErrorTitle.Text == "Teleport Failed" then
                                 HopServer()
+                                v.Visible = false
                             end
                         end
                     end
@@ -601,6 +626,7 @@ function HopServer(bO)
     while not Hop() do
         wait()
     end
+    SaveSettings2()
 end
 
 function m0()
@@ -707,121 +733,83 @@ function check11()
         game:GetService("Players").LocalPlayer.PlayerGui.Main.InCombat.Text and
         (string.find(string.lower(game:GetService("Players").LocalPlayer.PlayerGui.Main.InCombat.Text), "risk"))
 end
-function bypass(Pos)   
-    if lp.Character:FindFirstChild("Head") and lp.Character:FindFirstChild("HumanoidRootPart") and lp.Character:FindFirstChild("Humanoid") then
-        dist = math.huge
-        is = nil
-        for i , v in pairs(island) do
-            if (Pos.Position-v.Position).magnitude < dist then
-                is = v 
-                dist = (Pos.Position-v.Position).magnitude 
-            end
-        end 
-        if is == nil then return; end
-        if (lp.Character.Head.Position-Pos.Position).magnitude > distbyp then 
-            if (lp.Character.Head.Position-Pos.Position).magnitude > (is.Position-Pos.Position).magnitude then
-                if tween then
-                    tween:Destroy()
-                end
-                if (is.X == 61163.8515625 and is.Y == 11.6796875 and is.Z == 1819.7841796875) or is == CFrame.new(-12471.169921875 + 50, 374.94024658203, -7551.677734375) or is == CFrame.new(-5085.23681640625 + 50, 316.5072021484375, -3156.202880859375) or is == CFrame.new(5749.7861328125 + 50, 611.9736938476562, -276.2497863769531) then
-                    if tween then
-                       tween:Cancel()
-                    end
-                    repeat task.wait()
-                        lp.Character.HumanoidRootPart.CFrame = is  
-                    until lp.Character.PrimaryPart.CFrame == is   
-                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("SetSpawnPoint")
-                else
-                    if getgenv().Config.Misc["Bypass TP"] then
-                        if tween then 
-                            tween:Cancel() 
-                        end
-                        repeat task.wait()
-                            lp.Character.HumanoidRootPart.CFrame = is  
-                        until lp.Character.PrimaryPart.CFrame == is  
-                        game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid", 9):ChangeState(15)
-                        lp.Character:SetPrimaryPartCFrame(is)
-                        wait(0.1)
-                        lp.Character.Head:Destroy()
-                        repeat task.wait() until lp.Character:FindFirstChild("Humanoid").Health <= 0
-                        repeat task.wait()
-                            lp.Character.PrimaryPart.CFrame = is  
-                        until lp.Character:FindFirstChild("Head") and lp.Character:FindFirstChild("Humanoid").Health > 0
-                    end 
-                end
-            end
+
+function to(vg1)
+    if sexroblox then
+        sexroblox:Cancel()
+    end
+    --print("ncall")
+    if olfdvg and q1(olfdvg, vg1) > 1000 then
+      
+        return
+    end
+    if not vg1 then
+        return
+    end
+    --  print("continue ")
+    vg2 = CFrame.new(vg1.X, vg1.Y, vg1.Z)
+    game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart", 9)
+    game.Players.LocalPlayer.Character:WaitForChild("Head", 9)
+
+    for a, b in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+        if b:IsA "BasePart" then
+            b.CanCollide = false
         end
     end
-end
-function to(Pos)
-    pcall(function()
-        if lp.Character:FindFirstChild("HumanoidRootPart") and lp.Character:FindFirstChild("Humanoid").Health > 0 then
-            Distance = (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
-            if not game.Players.LocalPlayer.Character.PrimaryPart:FindFirstChild("Hold") then
-                local Hold = Instance.new("BodyVelocity", game.Players.LocalPlayer.Character.PrimaryPart)
-                Hold.Name = "Hold"
-                Hold.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
-                Hold.Velocity = Vector3.new(0, 0, 0)
-            end
-            for a, b in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-                if b:IsA"BasePart" then
-                    b.CanCollide = false
-                end
-            end
-            if game.Players.LocalPlayer.Character.Humanoid.Sit == true then
-                game.Players.LocalPlayer.Character.Humanoid.Sit = false
-            end
-            if Distance < 250 then
-                Speed = 400
-            elseif Distance < 1000 then
-                Speed = 375
-            elseif Distance >= 1000 then
-                Speed = 350
-            end
-            pcall(function()
-                tween = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(Distance / Speed, Enum.EasingStyle.Linear),{CFrame = Pos})
-                tween:Play()
-            end)
-            if not stopbypass  then
-                if game:GetService("Players").LocalPlayer.PlayerGui.Main.InCombat.Visible then
-                    if not string.find(string.lower(game:GetService("Players").LocalPlayer.PlayerGui.Main.InCombat.Text), "risk") then
-                        bypass(Pos)
-                    else
-                        dist = math.huge
-                        is = nil
-                        for i , v in pairs(island) do
-                            if (Pos.Position-v.Position).magnitude < dist then
-                                is = v 
-                                dist = (Pos.Position-v.Position).magnitude 
-                            end
-                        end 
-                        if is == nil then return; end
-                        if (lp.Character.Head.Position-Pos.Position).magnitude > distbyp then 
-                            if (lp.Character.Head.Position-Pos.Position).magnitude > (is.Position-Pos.Position).magnitude then
-                                if tween then
-                                    tween:Destroy()
-                                end
-                                if (is.X == 61163.8515625 and is.Y ==11.6796875 and is.Z == 1819.7841796875) or is == CFrame.new(-12471.169921875 + 50, 374.94024658203, -7551.677734375) or is == CFrame.new(-5085.23681640625 + 50, 316.5072021484375, -3156.202880859375) or is == CFrame.new(5749.7861328125 + 50, 611.9736938476562, -276.2497863769531) then
-                                    if tween then
-                                    tween:Cancel()
-                                    end
-                                    repeat task.wait()
-                                        lp.Character.HumanoidRootPart.CFrame = is  
-                                    until lp.Character.PrimaryPart.CFrame == is   
-                                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("SetSpawnPoint")
-                                end
-                            end
-                        end
-                    end
-                else
-                    bypass(Pos)
-                end
-            end
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.X, Pos.Y, game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Z)
+    if not game.Players.LocalPlayer.Character.Head:FindFirstChild "eltrul" then
+        local ngu = Instance.new("BodyVelocity", game.Players.LocalPlayer.Character.Head)
+        ngu.Name = "eltrul"
+        ngu.MaxForce = Vector3.new(0, math.huge, 0)
+        ngu.Velocity = Vector3.new(0, 0, 0)
+    end
+    vg3 = getPortal(vg2)
+    vg9 = getSpawn(vg2)
+    for mm = 0, 3, 1 do
+        if getSpawn(vg2) ~= vg9 then
+            return
         end
-    end)
-end
+    end
 
+    vg5 = game.Players.LocalPlayer.Character.HumanoidRootPart
+    vg4 = vg5.CFrame
+    vg7 = q1(vg4, vg2)
+    if vg9 then
+        vg10 = q1(vg9, vg2)
+        if
+            Setting.Misc.BypassTP and not check11() and vg10 < vg7 and vg7 > 3600 and q1(vg4, vg9) > 500 and
+                vg10 < (q1(vg3, vg2) + 800)
+         then
+            return grgrgrgrg(vg9)
+        end
+    end
+
+    if vg7 > q1(vg3, vg2) and vg7 > 300 then
+        --print("request")
+        return request(vg3)
+    end
+    if vg7 < 220 then
+        vg5.CFrame = vg2
+        --    print("set")
+        return
+    end
+    if q1(vg2) > 250 and Setting.Misc["Silent Mode"] then
+        vg2 = vg2 + Vector3.new(0, 350, 0)
+    end
+
+    
+    safe_cp(lp).CFrame = CFrame.new(vg4.X, vg2.Y, vg4.Z)
+
+    vg6 = vg7 / 350
+    sexroblox =
+        game:GetService("TweenService"):Create(
+        game.Players.LocalPlayer.Character.HumanoidRootPart,
+        TweenInfo.new(vg6, Enum.EasingStyle.Linear),
+        {CFrame = vg2}
+    )
+
+    sexroblox:Play()
+    -- print("tween")
+end
 
 function q1(I, II)
     if not II then
@@ -918,7 +906,7 @@ function find_target()
     -- noti("Auto Bounty", uwu.Name)
     niga[uwu.Name] = true
     fromtime = os.time()
-    TextLabel_3.Text = "Target Name : " .. tostring(uwu)
+    Target.Text = "Target: " .. tostring(uwu)
 
     if Setting.Chat.Enable then
         porn = split(tostring(Setting.Chat.Content), ",")
@@ -976,6 +964,7 @@ function checkNotify(msg)
     for r, k in pairs(game.Players.LocalPlayer.PlayerGui.Notifications:GetChildren()) do
         if k and k.Text and string.find(string.lower(k.Text), msg) then
             k:Destroy()
+
             return true
         end
     end
@@ -1024,11 +1013,11 @@ function calculate_earn()
     start_bounty = lp.leaderstats["Bounty/Honor"].Value
     if earned > 0 then
         LocalEarn = LocalEarn + earned
-        TextLabel_4.Text = "Earned : " .. LocalEarn
+        ServerEarn.Text = "Server Earned: " .. LocalEarn
         if Setting.Webhook.Enable then
             PostWebhook2(
                 {
-                    content = ";D",
+                    content = "🥶",
                     tts = false,
                     embeds = {
                         {
@@ -1051,6 +1040,12 @@ function calculate_earn()
                                     inline = false
                                 },
                                 {
+                                    id = 76247715,
+                                    name = "Total Earned",
+                                    value = string.format("``` %s ```", tostring(celes.Total_Earned)),
+                                    inline = false
+                                },
+                                {
                                     id = 7624775,
                                     name = "Eslaped",
                                     value = string.format("``` %s ```", tostring(disp_time(celes.Client_Eslaped))),
@@ -1064,7 +1059,7 @@ function calculate_earn()
                                 }
                             },
                             author = {
-                                name = "Night Hub Bounty Hunting"
+                                name = "Night Hub Bounty"
                             }
                         }
                     }
@@ -1159,50 +1154,6 @@ function equip(tooltip)
             end
         end
     end
-end
-
-function CheckSea(e)
-    if sussea then
-        if sussea == e then
-            return true
-        end
-    else
-        if game.PlaceId == 2753915549 then
-            if e == 1 then
-                sussea = 1
-                return true
-            end
-        elseif game.PlaceId == 4442272183 then
-            if e == 2 then
-                sussea = 2
-                return true
-            end
-        elseif game.PlaceId == 7449423635 then
-            if e == 3 then
-                sussea = 3
-                return true
-            end
-        end
-        return false
-    end
-end
-local moonTextures = {
-    ["http://www.roblox.com/asset/?id=9709149431"] = " [🌕] Full Moon",
-    ["http://www.roblox.com/asset/?id=9709149052"] = "[🌔] 75",
-    ["http://www.roblox.com/asset/?id=9709143733"] = "[🌗] 50",
-    ["http://www.roblox.com/asset/?id=9709150401"] = "[🌒] 25",
-    ["http://www.roblox.com/asset/?id=9709149680"] = "[🌑] 0"
-}
-
-function isMirageSpawn()
-    return game:GetService("Workspace").Map:FindFirstChild("MysticIsland")
-end
-
-NowSea = "Main"
-if CheckSea(2) then
-    NowSea = "Second Sea"
-elseif CheckSea(3) then
-    NowSea = "Third Sea"
 end
 
 function to_base64(data)
@@ -1370,6 +1321,7 @@ old =
                 uwu.Character and
                 uwu.Character:FindFirstChild("Head")
          then
+           print("aim")
             local a2 = workspace.CurrentCamera:WorldToScreenPoint(uwu.Character.Head.Position)
             return a2
         end
@@ -1387,7 +1339,9 @@ while task.wait() do
     if m10 then
         break
     end
+    save()
     checktarget()
+    post2()
     notpassed = false
     for i, v in pairs(game.Workspace.NPCs:GetChildren()) do
         if v:FindFirstChild("HumanoidRootPart") and q1(v.HumanoidRootPart.Position) < 20 then
