@@ -1810,6 +1810,88 @@ end
         ):Play()
 end
 
+function Diden(Pos)
+    Distance = (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+    if Distance < 10 then
+        Speed = 20
+    elseif Distance < 25 then
+        Speed = 5050
+    elseif Distance < 50 then
+        Speed = 2040
+    elseif Distance < 150 then
+        Speed = 830
+    elseif Distance < 250 then
+        Speed = 620
+    elseif Distance < 500 then
+        Speed = 410
+    elseif Distance < 750 then
+        Speed = 370
+    elseif Distance >= 1000 then
+        Speed = 320
+    end
+    game:GetService("TweenService"):Create(
+        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
+        TweenInfo.new(Distance/Speed, Enum.EasingStyle.Linear),
+        {CFrame = Pos}
+    ):Play()
+end
+
+function BTP(P1)
+game.Players.LocalPlayer.Character.Head:Destroy()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = P1
+wait(1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = P1
+game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("SetSpawnPoint")
+end
+
+getgenv().Diden = function(p)
+task.spawn(function()
+    pcall(function()
+        if game:GetService("Players").LocalPlayer:DistanceFromCharacter(p.Position) <= 250 then 
+            game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = p
+        elseif not game.Players.LocalPlayer.Character:FindFirstChild("Root")then 
+            local K = Instance.new("Part",game.Players.LocalPlayer.Character)
+            K.Size = Vector3.new(1,0.5,1)
+            K.Name = "Root"
+            K.Anchored = true
+            K.Transparency = 1
+            K.CanCollide = false
+            K.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,20,0)
+        end
+        local U = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-p.Position).Magnitude
+        local z = game:service("TweenService")
+        local B = TweenInfo.new((p.Position-game.Players.LocalPlayer.Character.Root.Position).Magnitude/300,Enum.EasingStyle.Linear)
+        local S,g = pcall(function()
+        local q = z:Create(game.Players.LocalPlayer.Character.Root,B,{CFrame = p})
+        q:Play()
+    end)
+    if not S then 
+        return g
+    end
+    game.Players.LocalPlayer.Character.Root.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        if S and game.Players.LocalPlayer.Character:FindFirstChild("Root") then 
+            pcall(function()
+                if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-p.Position).Magnitude >= 20 then 
+                    spawn(function()
+                        pcall(function()
+                            if (game.Players.LocalPlayer.Character.Root.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 150 then 
+                                game.Players.LocalPlayer.Character.Root.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                            else 
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=game.Players.LocalPlayer.Character.Root.CFrame
+                            end
+                        end)
+                    end)
+                elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-p.Position).Magnitude >= 10 and(game.Players.LocalPlayer.Character.HumanoidRootPart.Position-p.Position).Magnitude < 20 then 
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = p
+                elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-p.Position).Magnitude < 10 then 
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = p
+                end
+            end)
+        end
+    end)
+end)
+end
+
 function TPB(CFgo)
 	local tween_s = game:service"TweenService"
 	local info = TweenInfo.new((game:GetService("Workspace").Boats.MarineBrigade.VehicleSeat.CFrame.Position - CFgo.Position).Magnitude/300, Enum.EasingStyle.Linear)
@@ -5336,12 +5418,6 @@ spawn(function()
     end
 end)     
 spawn(function()
-    game:GetService("RunService").RenderStepped:Connect(function()
-        game.Players.LocalPlayer.Character.Stun.Value = 0
-        game.Players.LocalPlayer.Character.Busy.Value = false        
-    end)
-end)
-spawn(function()
     while wait() do
         pcall(function()
             if game:GetService("ReplicatedStorage"):FindFirstChild("Saber Expert") or game:GetService("ReplicatedStorage"):FindFirstChild("Saber Expert") or game:GetService("ReplicatedStorage"):FindFirstChild("Saber Expert") or game:GetService("Workspace").Enemies:FindFirstChild("Saber Expert") or game:GetService("Workspace").Enemies:FindFirstChild("Saber Expert") or game:GetService("Workspace").Enemies:FindFirstChild("Saber Expert") then
@@ -5526,7 +5602,7 @@ spawn(function()
                                     v.Humanoid.WalkSpeed = 0
                                     v.Head.CanCollide = false 
                                     Wibushark = false
-                                    HyperCahaya(v.HumanoidRootPart.CFrame * CFrame.new(2,60,2))
+                                    Diden(v.HumanoidRootPart.CFrame * CFrame.new(2,60,2))
                                     game:GetService("VirtualUser"):CaptureController()
                                     game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
                                 until not _G.SharkBulon or not v.Parent or v.Humanoid.Health <= 0
@@ -5536,7 +5612,7 @@ spawn(function()
                     end
                 else
                     if game:GetService("ReplicatedStorage"):FindFirstChild("Shark") then
-                        topos(game:GetService("ReplicatedStorage"):FindFirstChild("Shark").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
+                        Diden(game:GetService("ReplicatedStorage"):FindFirstChild("Shark").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
                     end
                 end
             end)
@@ -5558,7 +5634,7 @@ spawn(function()
                                     v.Humanoid.WalkSpeed = 0
                                     v.Head.CanCollide = false 
                                     Wibu = false
-                                    topos(v.HumanoidRootPart.CFrame * CFrame.new(2,63,2))
+                                    Diden(v.HumanoidRootPart.CFrame * CFrame.new(2,63,2))
                                     game:GetService("VirtualUser"):CaptureController()
                                     game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
                                 until not _G.TerrorSharkBulon or not v.Parent or v.Humanoid.Health <= 0
@@ -5568,12 +5644,19 @@ spawn(function()
                     end
                 else
                     if game:GetService("ReplicatedStorage"):FindFirstChild("Terrorshark") then
-                        topos(game:GetService("ReplicatedStorage"):FindFirstChild("Terrorshark").HumanoidRootPart.CFrame * CFrame.new(2,60,2))
+                        Diden(game:GetService("ReplicatedStorage"):FindFirstChild("Terrorshark").HumanoidRootPart.CFrame * CFrame.new(2,60,2))
                     end
                 end
             end)
         end
     end
+end)
+
+spawn(function()
+    game:GetService("RunService").RenderStepped:Connect(function()
+        game.Players.LocalPlayer.Character.Stun.Value = 0
+        game.Players.LocalPlayer.Character.Busy.Value = false        
+    end)
 end)
 Notify("Loaded Features Complete", 5)
 OrionLib:Init()
