@@ -2629,7 +2629,7 @@ RE:AddToggle({
     end    
 })
 
-RREA:AddToggle({
+RE:AddToggle({
     Name = "Start Raid Law",
     Default = false,
     Flag = "Auto Start Raid Law",
