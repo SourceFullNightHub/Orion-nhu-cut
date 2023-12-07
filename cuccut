@@ -5519,10 +5519,6 @@ spawn(function()
                         until not _G.SharkBulon or v.Humanoid.Health <= 0 or not v:FindFirstChild("HumanoidRootPart")
                     end
                 end
-            else
-                if game:GetService("Workspace").Enemies:FindFirstChild("Shark") then
-                    topos(game:GetService("Workspace").Enemies:FindFirstChild("Shark").HumanoidRootPart.CFrame * CFrame.new(2, 40, 2))
-                end
             end
         end
     end
@@ -5542,10 +5538,6 @@ spawn(function()
                             Click()
                         until not _G.TerrorSharkBulon or v.Humanoid.Health <= 0 or not v:FindFirstChild("HumanoidRootPart")
                     end
-                end
-            else
-                if game:GetService("Workspace").Enemies:FindFirstChild("Terrorshark") then
-                    topos(game:GetService("Workspace").Enemies:FindFirstChild("Terrorshark").HumanoidRootPart.CFrame * CFrame.new(2, 40, 2))
                 end
             end
         end
