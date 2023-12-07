@@ -1,3 +1,79 @@
+getgenv().Setting = {
+    ["Hunt"] = {
+        ["Team"] = "Pirates"
+    },
+    ["Webhook"] = {
+        ["Enable"] = true,
+        ["Url"] = "https://discord.com/api/webhooks/1173059368447655996/V118UZx4nJ0bCfgKHzFfxtsPav8JT9IA18iPT9iv49CNvinGtqJqhvNOjm7jifHRsGbY"
+    },
+    ["Skip"] = {
+        ["V4"] = false,
+        ["Fruit"] = {
+            "Portal-Portal",
+            "Mammoth-Mammoth",
+            "Buddha-Buddha"
+        },
+        ["Near-Island Max Distance"] = 7000
+    },
+    ["Chat"] = {
+        ["Enable"] = true,
+        ["Content"] = "I Got Night Hub Bounty Hunting Script"
+    },
+    ["Misc"] = {
+        ["Hold Until Max Skill Preserve"] = false,
+        ["Tweening On HoldTime"] = false,
+        ["Silent Mode"] = true,
+        ["Hide If Low Health"] = true,
+        ["Low Health | Max Health"] = {3000, 4000},
+        ["V4"] = true,
+        ["LockCamera"] = true,
+        ["FPSBoost"] = false,
+        ["WhiteScreen"] = false,
+        ["BypassTP"] = true,
+        ["TweenSpeed"] = 350,
+        ["HopRegion"] = "Singapore"
+    },
+    ["Items"] = {
+        ["Melee"] = {
+            ["Enable"] = true,
+            ["Delay"] = 4,
+            ["Skills"] = {
+                ["Z"] = {["Enable"] = true, ["HoldTime"] = 0},
+                ["X"] = {["Enable"] = true, ["HoldTime"] = 0},
+                ["C"] = {["Enable"] = true, ["HoldTime"] = 0}
+                --   ["V"] = {["Enable"] = false, ["HoldTime"] = 0}
+            }
+        },
+        ["Blox Fruit"] = {
+            ["Enable"] = false,
+            ["Delay"] = 6,
+            ["Skills"] = {
+                ["Z"] = {["Enable"] = true, ["HoldTime"] = 0},
+                ["X"] = {["Enable"] = false, ["HoldTime"] = 0},
+                ["C"] = {["Enable"] = false, ["HoldTime"] = 0},
+                ["V"] = {["Enable"] = false, ["HoldTime"] = 0},
+                ["F"] = {["Enable"] = false, ["HoldTime"] = 0}
+            }
+        },
+        ["Sword"] = {
+            ["Enable"] = true,
+            ["Delay"] = 4,
+            ["Skills"] = {
+                ["Z"] = {["Enable"] = true, ["HoldTime"] = 0},
+                ["X"] = {["Enable"] = true, ["HoldTime"] = 0}
+            }
+        },
+        ["Gun"] = {
+            ["Enable"] = true,
+            ["Delay"] = .1,
+            ["Skills"] = {
+                ["Z"] = {["Enable"] = true, ["HoldTime"] = 0},
+                ["X"] = {["Enable"] = true, ["HoldTime"] = 0}
+            }
+        }
+    }
+}
+
 _G.Buso = true
 spawn(function()
     while wait() do
