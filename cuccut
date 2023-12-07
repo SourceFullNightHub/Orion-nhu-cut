@@ -1741,7 +1741,7 @@ end
     function TP(Pos)
     Distance = (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
     if Distance < 25 then
-        Speed = 10000
+        Speed = 5000
     elseif Distance < 50 then
         Speed = 2000
     elseif Distance < 150 then
@@ -1749,11 +1749,11 @@ end
     elseif Distance < 250 then
         Speed = 600
     elseif Distance < 500 then
-        Speed = 400
+        Speed = 325
     elseif Distance < 750 then
-        Speed = 250
+        Speed = 300
     elseif Distance >= 1000 then
-        Speed = 200
+        Speed = 275
     end
     game:GetService("TweenService"):Create(
         game.Players.LocalPlayer.Character.HumanoidRootPart,
@@ -1773,11 +1773,11 @@ end
         elseif Distance < 250 then
             Speed = 600
         elseif Distance < 500 then
-            Speed = 300
+            Speed = 325
         elseif Distance < 750 then
-            Speed = 250
+            Speed = 300
         elseif Distance >= 1000 then
-            Speed = 200
+            Speed = 275
         end
         game:GetService("TweenService"):Create(
             game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
@@ -1797,11 +1797,11 @@ end
         elseif Distance < 250 then
             Speed = 600
         elseif Distance < 500 then
-            Speed = 300
+            Speed = 325
         elseif Distance < 750 then
-            Speed = 250
+            Speed = 300
         elseif Distance >= 1000 then
-            Speed = 200
+            Speed = 275
         end
         game:GetService("TweenService"):Create(
             game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,
@@ -4276,6 +4276,7 @@ spawn(function()
     end
 end)
 
+local PosCake = CFrame.new(-2091.911865234375, 70.00884246826172, -12142.8359375)
 local PosDought = CFrame.new(-2091.911865234375, 70.00884246826172, -12142.8359375)
 spawn(function()
     while wait() do
@@ -4328,7 +4329,15 @@ spawn(function()
                                 end
                             else
                                 MagnetDought = false
-                                topos(CFrame.new(-2091.911865234375, 70.00884246826172, -12142.8359375))
+                                if BypassTP then
+                                    if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - PosCake.Position).Magnitude > 1500 then
+                                    BTP(PosCake)
+                                    elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - PosCake.Position).Magnitude < 1500 then
+                                    topos(PosCake)
+                                    end
+                                else
+                                    topos(PosCake)
+                                end
                                 if game:GetService("ReplicatedStorage"):FindFirstChild("Cookie Crafter") then
                                     topos(game:GetService("ReplicatedStorage"):FindFirstChild("Cookie Crafter").HumanoidRootPart.CFrame * CFrame.new(2,20,2)) 
                                 else
@@ -5504,42 +5513,65 @@ end)
 
 spawn(function()
     while wait() do
-        if _G.SharkBulon then
-            for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+        if _G.SharkBulon and World3 then
+            pcall(function()
                 if game:GetService("Workspace").Enemies:FindFirstChild("Shark") then
-                    if v:FindFirstChild("Shark") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                        repeat wait()    
-                            AutoHaki()
-                            EquipWeapon(_G.SelectWeapon)
-                            v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
-                            v.HumanoidRootPart.CanCollide = false
-                            v.Humanoid.WalkSpeed = 0
-                            topos(v.HumanoidRootPart.CFrame * CFrame.new(2,40,2))
-                            Click()
-                        until not _G.SharkBulon or v.Humanoid.Health <= 0 or not v:FindFirstChild("HumanoidRootPart")
+                    for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                        if v.Name == "Shark" then
+                            if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+                                repeat task.wait()
+                                    AutoHaki()
+                                    EquipWeapon(_G.SelectWeapon)
+                                    v.HumanoidRootPart.CanCollide = false
+                                    v.Humanoid.WalkSpeed = 0
+                                    v.Head.CanCollide = false 
+                                    Wibushark = false
+                                    HyperCahaya(v.HumanoidRootPart.CFrame * CFrame.new(2,60,2))
+                                    game:GetService("VirtualUser"):CaptureController()
+                                    game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
+                                until not _G.SharkBulon or not v.Parent or v.Humanoid.Health <= 0
+                                Wibushark = false
+                            end
+                        end
+                    end
+                else
+                    if game:GetService("ReplicatedStorage"):FindFirstChild("Shark") then
+                        topos(game:GetService("ReplicatedStorage"):FindFirstChild("Shark").HumanoidRootPart.CFrame * CFrame.new(2,20,2))
                     end
                 end
-            end
+            end)
         end
     end
 end)
 spawn(function()
     while wait() do
-        if _G.TerrorSharkBulon then
-            for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+        if _G.TerrorSharkBulon and World3 then
+            pcall(function()
                 if game:GetService("Workspace").Enemies:FindFirstChild("Terrorshark") then
-                    if v:FindFirstChild("Terrorshark") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                        repeat wait()      
-                            AutoHaki()
-                            EquipWeapon(_G.SelectWeapon)
-                            v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
-                            v.HumanoidRootPart.CanCollide = false
-                            topos(v.HumanoidRootPart.CFrame * CFrame.new(2,40,2))
-                            Click()
-                        until not _G.TerrorSharkBulon or v.Humanoid.Health <= 0 or not v:FindFirstChild("HumanoidRootPart")
+                    for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                        if v.Name == "Terrorshark" then
+                            if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+                                repeat task.wait()
+                                    AutoHaki()
+                                    EquipWeapon(_G.SelectWeapon)
+                                    v.HumanoidRootPart.CanCollide = false
+                                    v.Humanoid.WalkSpeed = 0
+                                    v.Head.CanCollide = false 
+                                    Wibu = false
+                                    topos(v.HumanoidRootPart.CFrame * CFrame.new(2,63,2))
+                                    game:GetService("VirtualUser"):CaptureController()
+                                    game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
+                                until not _G.TerrorSharkBulon or not v.Parent or v.Humanoid.Health <= 0
+                                Wibu = false
+                            end
+                        end
+                    end
+                else
+                    if game:GetService("ReplicatedStorage"):FindFirstChild("Terrorshark") then
+                        topos(game:GetService("ReplicatedStorage"):FindFirstChild("Terrorshark").HumanoidRootPart.CFrame * CFrame.new(2,60,2))
                     end
                 end
-            end
+            end)
         end
     end
 end)
