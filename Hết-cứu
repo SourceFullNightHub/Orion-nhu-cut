@@ -463,93 +463,9 @@ function safe_cp(p)
     --p.Character:WaitForChild("Head")
 end
 
-pathfile = "Night Hub/Blox Fruit/Auto Bounty"
-pathfile2 = "Night Hub/Blox Fruit/Auto Bounty/" .. lp.Name .. ".json"
-pathfile3 = "Night Hub/Blox Fruit/Auto Bounty/Themes"
-function deploy()
-    if not isfolder(pathfile) then
-        makefolder(pathfile)
-    end
-    if not isfolder(pathfile3) then
-        makefolder(pathfile3)
-    end
-    if not isfile(pathfile2) then
-        writefile(pathfile2, "{}")
-    end
-    celes = HttpService:JSONDecode(readfile(pathfile2))
-    celes2 = HttpService:JSONDecode(readfile(pathfile2))
-end
-deploy()
-
-if not celes["Client_Eslaped"] then
-    celes = {
-        Client_Eslaped = 0,
-        Total_Earned = 0
-    }
-end
-celes2 = {
-    Client_Eslaped = celes.Client_Eslaped,
-    Total_Earned = celes.Total_Earned
-}
-
-function disp_time(time)
-    time = tonumber(time)
-    if not time then
-        return "[err]"
-    end
-    local days = math.floor(time / 86400)
-    local hours = math.floor(math.fmod(time, 86400) / 3600)
-    local minutes = math.floor(math.fmod(time, 3600) / 60)
-    local seconds = math.floor(math.fmod(time, 60))
-    return (days .. "day, " .. hours .. "hrs, " .. minutes .. "min, " .. seconds .. "s")
-end
-
-function save()
-    a999 = celes2.Total_Earned
-    celes.Total_Earned = a999 + tonumber(lp.leaderstats["Bounty/Honor"].Value - oldbty2)
-    celes.Client_Eslaped = celes2.Client_Eslaped + (os.time() - a000000009)
-
-    TextLabel_4.Text = [[Total Earned: ]] .. celes.Total_Earned
-    Time.Text = [[Client Time Eslaped: ]] .. disp_time(celes.Client_Eslaped)
-    local a0 = HttpService:JSONEncode(celes)
-    writefile(pathfile2, a0)
-end
-
 function noti(a, b, c)
     print("[Night Hub Notify]", a, b)
 end
-
-local bM = {}
-
-local HttpService = game:GetService("HttpService")
-local bN = "ServerCache"
-function SaveSettings2()
-    local HttpService = game:GetService("HttpService")
-    if not isfolder("Night Hub/Cache/") then
-        makefolder("Night Hub/Cache/")
-    end
-    writefile("Night Hub/Cache/" .. bN, HttpService:JSONEncode(bM))
-end
-function ReadSetting2()
-    local s, o =
-        pcall(
-        function()
-            local HttpService = game:GetService("HttpService")
-            Hub = game:GetService("HttpService")
-            if not isfolder("Night Hub/Cache/") then
-                makefolder("Night Hub/Cache/")
-            end
-            return HttpService:JSONDecode(readfile("Night Hub/Cache/" .. bN))
-        end
-    )
-    if s then
-        return o
-    else
-        SaveSettings2()
-        return ReadSetting2()
-    end
-end
-bM = ReadSetting2()
 
 function HopServer(bO)
     -- noti("Hop", "9999")
@@ -577,7 +493,6 @@ function HopServer(bO)
                 if k ~= game.JobId and v["Count"] < bO then
                     if not bM[k] or tick() - bM[k].Time > 60 * 10 then
                         bM[k] = {Time = tick()}
-                        SaveSettings2()
                         if game:GetService("Players").LocalPlayer.PlayerGui.Main.InCombat.Visible then
                             noti("Wait For End InCombat", 15)
                             repeat
@@ -626,7 +541,6 @@ function HopServer(bO)
     while not Hop() do
         wait()
     end
-    SaveSettings2()
 end
 
 function m0()
@@ -1339,9 +1253,7 @@ while task.wait() do
     if m10 then
         break
     end
-    save()
     checktarget()
-    post2()
     notpassed = false
     for i, v in pairs(game.Workspace.NPCs:GetChildren()) do
         if v:FindFirstChild("HumanoidRootPart") and q1(v.HumanoidRootPart.Position) < 20 then
