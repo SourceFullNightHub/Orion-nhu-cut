@@ -6040,7 +6040,6 @@ spawn(function()
     end
 end)
 
-if World3 then
     spawn(function()
         pcall(function()
             while wait() do
