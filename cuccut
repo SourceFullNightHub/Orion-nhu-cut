@@ -1089,7 +1089,7 @@ task.spawn(
 
 local Section = Tabs.G:AddSection("Settings Farm")
 
-local Toggle = Tabs.G:AddToggle("FastAttack", {Title = "Large Hitbox", Default = true })
+local Toggle = Tabs.G:AddToggle("FastAttack", {Title = "FastAttack", Default = true })
 
     Toggle:OnChanged(function()
         _G.FastAttack = Value
@@ -1111,7 +1111,7 @@ Dropdown:OnChanged(function(Value)
     _G.FastAttackDelay = Value
 end)
 
-local Toggle = Tabs.G:AddToggle("Bring Mon", {Title = "Bring Mob to easy Farm", Default = true })
+local Toggle = Tabs.G:AddToggle("BringMon", {Title = "Bring Mob", Default = true })
 
     Toggle:OnChanged(function()
         _G.BringMonster = Value
