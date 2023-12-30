@@ -1095,7 +1095,7 @@ local Toggle = Tabs.G:AddToggle("FastAttack", {Title = "FastAttack", Default = t
         _G.FastAttack = Value
     end)
 
-Options.MyToggle:SetValue(false)
+Options.FastAttack:SetValue(false)
 
 local AttackList = {"Super Fast", "Fast", "Normal", "Slow"}
 local Dropdown = Tab.G:AddDropdown("FastAttackMethod", {
@@ -1117,7 +1117,7 @@ local Toggle = Tabs.G:AddToggle("BringMon", {Title = "Bring Mob", Default = true
         _G.BringMonster = Value
     end)
 
-Options.MyToggle:SetValue(false)
+Options.BringMon:SetValue(false)
 
 local BringList = {"Super Large", "Large", "Normal", "low"}
 local Dropdown = Tab.G:AddDropdown("BringMode", {
@@ -1136,14 +1136,14 @@ end)
 local Section = Tabs.G:AddSection("Farm Toggle")
 
 
-local Toggle = Tabs.G:AddToggle("Level Farm", {Title = "Click the Box to enable Level Farm", Default = false })
+local Toggle = Tabs.G:AddToggle("LevelFarm", {Title = "Auto Level Farm", Default = false })
 
     Toggle:OnChanged(function()
         _G.AutoFarm = Value
         StopTween(_G.AutoFarm)
     end)
 
-Options.MyToggle:SetValue(false)
+Options.LevelFarm:SetValue(false)
 
 
 
