@@ -1095,10 +1095,10 @@ local Toggle = Tabs.G:AddToggle("FastAttack", {Title = "FastAttack", Default = t
         _G.FastAttack = Value
     end)
 
-Options.FastAttack:SetValue(false)
+Options.FastAttack:SetValue(true)
 
 local AttackList = {"Super Fast", "Fast", "Normal", "Slow"}
-local Dropdown = Tab.G:AddDropdown("FastAttackMethod", {
+local Dropdown = Tabs.G:AddDropdown("FastAttackMethod", {
     Title = "FastAttack Method",
     Values = AttackList,
     Multi = false,
@@ -1117,10 +1117,10 @@ local Toggle = Tabs.G:AddToggle("BringMon", {Title = "Bring Mob", Default = true
         _G.BringMonster = Value
     end)
 
-Options.BringMon:SetValue(false)
+Options.BringMon:SetValue(true)
 
 local BringList = {"Super Large", "Large", "Normal", "low"}
-local Dropdown = Tab.G:AddDropdown("BringMode", {
+local Dropdown = Tabs.G:AddDropdown("BringMode", {
     Title = "Bring Mode",
     Values = BringList,
     Multi = false,
