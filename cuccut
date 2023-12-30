@@ -995,7 +995,7 @@ StartFarmMethod:OnChanged(function(Value)
         StopTween(_G.Farm)
     end)
 
-    Options.StartFarmMethod:SetValue(false)
+Options.StartFarmMethod:SetValue(false)
 
 
 
@@ -1089,7 +1089,7 @@ BTP:OnChanged(function(Value)
         BypassTP = Value
     end)
 
-    Options.BTP:SetValue(true)
+Options.BTP:SetValue(true)
 
 
 
@@ -1533,11 +1533,11 @@ spawn(function()
         if _G.BringMode then
             pcall(function()
                 if _G.BringMode == "Normal" then
-                    _G.BringMode = 375
+                    _G.BringMode = 350
                 elseif _G.BringMode == "Larget" then
-                    _G.BringMode = 420
+                    _G.BringMode = 375
                 elseif _G.BringMode == "Super Large" then
-                    _G.BringMode = 500
+                    _G.BringMode = 400
                 end
             end)
         end
