@@ -12,7 +12,22 @@ local Window = Fluent:CreateWindow({
     MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
 })
 
----Close gui
+-- Join :
+
+if game.Players.LocalPlayer.PlayerGui.Main:FindFirstChild("ChooseTeam") then
+    for i, v in pairs(
+        getconnections(
+            game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.TextButton.Activated
+        )
+    ) do
+        for a, b in pairs(getconnections(game:GetService("UserInputService").TouchTapInWorld)) do
+            b:Fire()
+        end
+        v.Function()
+    end
+end
+
+--- Close gui
 local ScreenGui = Instance.new("ScreenGui")
 local ImageButton = Instance.new("ImageButton")
 local UICorner = Instance.new("UICorner")
@@ -103,6 +118,9 @@ local Tabs = {
     RC = Window:AddTab({ Title = "Race V4", Icon = "github" }),
     S = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
+
+local Options = Fluent.Options
+do
 
 Fluent:Notify({
     Title = "Night Hub",
@@ -1031,7 +1049,7 @@ end)
 --- Others :
 
 local WeaponList = {"Melee","Sword","Fruit","Gun"}
-local Dropdown = Tab.G:AddDropdown("Dropdown", {
+local Dropdown = Tabs.G:AddDropdown("Dropdown", {
     Title = "Select Weapon",
     Values = WeaponList,
     Multi = false,
