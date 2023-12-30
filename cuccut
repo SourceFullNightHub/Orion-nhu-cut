@@ -22,6 +22,9 @@ local Window = Fluent:CreateWindow({
     Theme = "Darker",
     MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
 })
+local Options = Fluent.Options
+
+do
 --Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
 local Tabs = {
     I = Window:AddTab({ Title = "Info", Icon = "info" }),
@@ -1654,13 +1657,4 @@ task.spawn(
         end
     end
 )
-
-
-
-
-
-
-
-
-
-
+end
