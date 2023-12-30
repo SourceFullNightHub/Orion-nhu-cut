@@ -990,7 +990,7 @@ end)
 
 local StartFarmMethod = Tabs.G:AddToggle("StartFarmMethod", {Title = "Start Farm", Default = false })
 
-    Toggle:OnChanged(function(Value)
+StartFarmMethod:OnChanged(function(Value)
         _G.Farm = Value
         StopTween(_G.Farm)
     end)
