@@ -961,7 +961,7 @@ NotifyHeloo("Welcome To Night Hub Script | Ui Fluent New!")
 
 local SelectWeapon = Tabs.G:AddDropdown("SelectWeapon", {
     Title = "Select Weapon",
-    Values = {"Melee", "Sword"}
+    Values = {"Melee", "Sword"},
     Multi = false,
     Default = 1,
 })
