@@ -1176,7 +1176,7 @@ Options.Bringcut:SetValue(true)
 
 local BringMethod = Tabs.S:AddDropdown("BringMethod", {
     Title = "Select Bring Method",
-    Values = {"Super Fast", "Fast", "Normal", "Slow"},
+    Values = {"Super Large", "Large", "Normal"},
     Multi = false,
     Default = 1,
 })
@@ -1648,6 +1648,21 @@ task.spawn(
         end
     end
 )
+spawn(function()
+    while wait(.1) do
+        if _G.BringMode then
+            pcall(function()
+                if _G.BringMode == "Normal" then
+                    _G.BringMode = 375
+                elseif _G.BringMode == "Larget" then
+                    _G.BringMode = 420
+                elseif _G.BringMode == "Super Large" then
+                    _G.BringMode = 500
+                end
+            end)
+        end
+    end
+end)
 _G.Remove_Effect = true
 spawn(function()
     game:GetService('RunService').Stepped:Connect(function()
