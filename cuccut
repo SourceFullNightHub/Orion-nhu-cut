@@ -974,7 +974,7 @@ end)
 
 local Section = Tabs.G:AddSection("Select Method Farm")
 
-local Method = Tabs.Main:AddDropdown("Method", {
+local Method = Tabs.G:AddDropdown("Method", {
     Title = "Select Method Farm",
     Values = {"Level", "Cakes Island", "Bone Farm"},
     Multi = false,
@@ -988,7 +988,7 @@ Method:OnChanged(function(Value)
 end)
 
 
-local StartFarmMethod = Tabs.Main:AddToggle("StartFarmMethod", {Title = "Start Farm", Default = false })
+local StartFarmMethod = Tabs.G:AddToggle("StartFarmMethod", {Title = "Start Farm", Default = false })
 
     Toggle:OnChanged(function(Value)
         _G.Farm = Value
