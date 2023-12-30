@@ -1033,7 +1033,7 @@ local Fast = Tabs.S:AddToggle("FastAttack", {Title = "FastAttack", Default = tru
 
     Options.FastAttack:SetValue(true)
 
-local FastDelay = Tabs.Main:AddDropdown("FastDelay", {
+local FastDelay = Tabs.S:AddDropdown("FastDelay", {
     Title = "Select Fast Attack Method",
     Values = {"Super Fast", "Fast", "Normal", "Slow"},
     Multi = false,
@@ -1054,7 +1054,7 @@ Bring:OnChanged(function(Value)
 
 Options.Bringcut:SetValue(true)
 
-local BringMethod = Tabs.Main:AddDropdown("BringMethod", {
+local BringMethod = Tabs.S:AddDropdown("BringMethod", {
     Title = "Select Bring Method",
     Values = {"Super Fast", "Fast", "Normal", "Slow"},
     Multi = false,
@@ -1067,7 +1067,7 @@ BringMethod:OnChanged(function(Value)
     _G.BringMode = Value
 end)
 
-local PosY = Tabs.Main:AddSlider("PosY", {
+local PosY = Tabs.S:AddSlider("PosY", {
     Title = "PosY",
     Description = "Pos Y",
     Default = 30,
