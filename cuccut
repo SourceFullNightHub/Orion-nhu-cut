@@ -1201,19 +1201,6 @@ local Fast = Tabs.S:AddToggle("FastAttack", {Title = "FastAttack", Default = tru
 
     Options.FastAttack:SetValue(true)
 
-local FastDelay = Tabs.S:AddDropdown("FastDelay", {
-    Title = "Select Fast Attack Method",
-    Values = {"Super Fast", "Fast", "Normal", "Slow"},
-    Multi = false,
-    Default = 1,
-})
-
-FastDelay:SetValue("Normal")
-
-FastDelay:OnChanged(function(Value)
-    _G.BringMode = Value
-end)
-
 local Bring = Tabs.S:AddToggle("Bringcut", {Title = "Bring Mob", Default = true })
 
 Bring:OnChanged(function(Value)
@@ -1605,7 +1592,7 @@ spawn(
                             v.Humanoid.Health > 0 and
                             (v.HumanoidRootPart.Position -
                                 game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <=
-                                220
+                                350
                      then
                         v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
                         v.HumanoidRootPart.CFrame = PosMon
@@ -1623,7 +1610,7 @@ spawn(
                             v.Humanoid.Health > 0 and
                             (v.HumanoidRootPart.Position -
                                 game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <=
-                                _G.BringMode
+                                350
                      then
                         v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
                         v.HumanoidRootPart.CFrame = PosMon
@@ -1640,13 +1627,12 @@ spawn(
         end
     end
 )
-
 spawn(function()
     while wait() do
         if _G.BringMonster then
             if _G.Farm and StartCheckBone then
                 for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                    if (v.Name == "Reborn Skeleton" or v.Name == "Living Zombie" or v.Name == "Demonic Soul" or v.Name == "Posessed Mummy") and (v.HumanoidRootPart.Position - PosMonBone.Position).Magnitude <= _G.BringMode and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+                    if (v.Name == "Reborn Skeleton" or v.Name == "Living Zombie" or v.Name == "Demonic Soul" or v.Name == "Posessed Mummy") and (v.HumanoidRootPart.Position - PosMonBone.Position).Magnitude <= 350 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                         v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
                             v.Humanoid:ChangeState(14)
                             v.HumanoidRootPart.CanCollide = false
@@ -1659,7 +1645,7 @@ spawn(function()
                         end
                     end
                 if _G.Farm and MagnetDought then
-                    if (v.Name == "Cookie Crafter" or v.Name == "Cake Guard" or v.Name == "Baking Staff" or v.Name == "Head Baker") and (v.HumanoidRootPart.Position - PosMonDoughtOpenDoor.Position).Magnitude <= _G.BringMode and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+                    if (v.Name == "Cookie Crafter" or v.Name == "Cake Guard" or v.Name == "Baking Staff" or v.Name == "Head Baker") and (v.HumanoidRootPart.Position - PosMonDoughtOpenDoor.Position).Magnitude <= 350 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                         v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
                         v.Humanoid:ChangeState(14)
                         v.HumanoidRootPart.CanCollide = false
@@ -1675,7 +1661,6 @@ spawn(function()
         end
     end
 end)
-
 task.spawn(
     function()
         while wait() do
@@ -1715,21 +1700,6 @@ task.spawn(
         end
     end
 )
-spawn(function()
-    while wait(.1) do
-        if _G.BringMode then
-            pcall(function()
-                if _G.BringMode == "Normal" then
-                    _G.BringMode = 350
-                elseif _G.BringMode == "Larget" then
-                    _G.BringMode = 375
-                elseif _G.BringMode == "Super Large" then
-                    _G.BringMode = 400
-                end
-            end)
-        end
-    end
-end)
 spawn(
     function()
         while wait() do
@@ -1740,8 +1710,6 @@ spawn(
                     _G.FastAttackDelay = 0.15
                 elseif _G.FastAttackDelay == "Normal" then
                     _G.FastAttackDelay = 0.25
-                elseif _G.FastAttackDelay == "Slow" then
-                    _G.FastAttackDelay = 0.5
                 end
             end
         end
@@ -1759,9 +1727,7 @@ spawn(function()
 		end)
 	end
 end)
-
 -- Remove Misc :
-
 spawn(function()
     while wait() do
         if RemoveTextHit then
@@ -1771,7 +1737,6 @@ spawn(function()
         end
     end
 end)
-
 spawn(function()
     while wait() do
         if RemoveNotify then
@@ -1783,8 +1748,6 @@ spawn(function()
         end
     end
 end)
-
-
 -- Remove Effect :
 spawn(function()
     while wait() do
@@ -1797,7 +1760,6 @@ spawn(function()
         end
     end
 end)
-
 getgenv().NoDieEffect = true
 if getgenv().NoDieEffect then
     if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Death") then
