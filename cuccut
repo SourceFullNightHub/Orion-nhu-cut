@@ -44,19 +44,6 @@ function Kickcc()
     end
 end
 Kickcc()
--- Join Team :
-if game.Players.LocalPlayer.PlayerGui.Main:FindFirstChild("ChooseTeam") then
-    for i, v in pairs(
-        getconnections(
-            game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.TextButton.Activated
-        )
-    ) do
-        for a, b in pairs(getconnections(game:GetService("UserInputService").TouchTapInWorld)) do
-            b:Fire()
-        end
-        v.Function()
-    end
-end
 --Fluent provides Lucide Icons https://lucide.dev/icons/ for the tabs, icons are optional
 local Tabs = {
     I = Window:AddTab({ Title = "Info", Icon = "info" }),
@@ -1366,8 +1353,6 @@ spawn(
                                                         BringCakes = true
                                                         PosCakesMob = v.HumanoidRootPart.CFrame
                                                         topos(v.HumanoidRootPart.CFrame * Pos)
-                                                        game:GetService("VirtualUser"):CaptureController()
-                                                        game:GetService("VirtualUser"):Button1Down(
                                                             Vector2.new(1280, 672)
                                                         )
                                                     until not _G.SelectFarm == "Cakes Island" or not v.Parent or
@@ -1394,7 +1379,7 @@ spawn(
                                                 BTP(PosCakes)
                                             elseif
                                                 (game.Players.LocalPlayer.Character.HumanoidRootPart.Position -
-                                                    PosCake.Position).Magnitude < 1500
+                                                    PosCakes.Position).Magnitude < 1500
                                              then
                                                 topos(PosCakes)
                                             end
@@ -1873,6 +1858,19 @@ if getgenv().NoDieEffect then
     end
     if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Respawn") then
         game:GetService("ReplicatedStorage").Effect.Container.Respawn:Destroy()
+    end
+end
+-- Join Team :
+if game.Players.LocalPlayer.PlayerGui.Main:FindFirstChild("ChooseTeam") then
+    for i, v in pairs(
+        getconnections(
+            game:GetService("Players").LocalPlayer.PlayerGui.Main.ChooseTeam.Container.Pirates.Frame.TextButton.Activated
+        )
+    ) do
+        for a, b in pairs(getconnections(game:GetService("UserInputService").TouchTapInWorld)) do
+            b:Fire()
+        end
+        v.Function()
     end
 end
 end
