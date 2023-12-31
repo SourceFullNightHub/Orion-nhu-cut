@@ -976,7 +976,8 @@ end
 
 -- Bucu k :
 ------AttackNoCD
-
+local CamShake = require(game.ReplicatedStorage.Util.CameraShaker)
+CamShake:Stop()
 local plr = game.Players.LocalPlayer
 local CbFw = getupvalues(require(plr.PlayerScripts.CombatFramework))
 local CbFw2 = CbFw[2]
