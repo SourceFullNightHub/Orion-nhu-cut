@@ -1193,6 +1193,20 @@ Options.StartFarmMethod:SetValue(false)
 
 
 -- Settings :
+
+local FastMethod = Tabs.S:AddDropdown("FastMethod", {
+    Title = "Select FastAttack Method",
+    Values = {"Super Fast", "Fast", "Normal"},
+    Multi = false,
+    Default = 1,
+})
+
+FastMethod:SetValue("Normal")
+
+FastMethod:OnChanged(function(Value)
+    _G.FastAttackDelay = Value
+end)
+
 local Fast = Tabs.S:AddToggle("FastAttack", {Title = "FastAttack", Default = true })
 
     Fast:OnChanged(function(Value)
@@ -1208,19 +1222,6 @@ Bring:OnChanged(function(Value)
     end)
 
 Options.Bringcut:SetValue(true)
-
-local BringMethod = Tabs.S:AddDropdown("BringMethod", {
-    Title = "Select Bring Method",
-    Values = {"Super Large", "Large", "Normal"},
-    Multi = false,
-    Default = 1,
-})
-
-BringMethod:SetValue("Normal")
-
-BringMethod:OnChanged(function(Value)
-    _G.BringMode = Value
-end)
 
 local PosY = Tabs.S:AddSlider("PosY", {
     Title = "PosY",
