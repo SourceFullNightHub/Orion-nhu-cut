@@ -1109,7 +1109,7 @@ BTP:OnChanged(function(Value)
         BypassTP = Value
     end)
 
-Options.BTP:SetValue(true)
+Options.BTP:SetValue(false)
 
 
 
@@ -1119,6 +1119,8 @@ Options.BTP:SetValue(true)
 
 -- Chức Năng :
 
+local PosBone = CFrame.new(-9506.234375, 172.130615234375, 6117.0771484375)
+local PosCakes = CFrame.new(-2142.66821,71.2588654,-12327.4619)
 spawn(
     function()
         while wait() do
@@ -1296,17 +1298,17 @@ spawn(
                                         if BypassTP then
                                             if
                                                 (game.Players.LocalPlayer.Character.HumanoidRootPart.Position -
-                                                    PosCake.Position).Magnitude > 1500
+                                                    PosCakes.Position).Magnitude > 1500
                                              then
-                                                BTP(PosCake)
+                                                BTP(PosCakes)
                                             elseif
                                                 (game.Players.LocalPlayer.Character.HumanoidRootPart.Position -
                                                     PosCake.Position).Magnitude < 1500
                                              then
-                                                topos(PosCake)
+                                                topos(PosCakes)
                                             end
                                         else
-                                            topos(PosCake)
+                                            topos(PosCakes)
                                         end
                                         if game:GetService("ReplicatedStorage"):FindFirstChild("Cookie Crafter") then
                                             topos(
