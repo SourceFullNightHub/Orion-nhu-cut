@@ -1353,8 +1353,6 @@ spawn(
                                                         BringCakes = true
                                                         PosCakesMob = v.HumanoidRootPart.CFrame
                                                         topos(v.HumanoidRootPart.CFrame * Pos)
-                                                            Vector2.new(1280, 672)
-                                                        )
                                                     until not _G.SelectFarm == "Cakes Island" or not v.Parent or
                                                         v.Humanoid.Health <= 0 or
                                                         game:GetService("Workspace").Map.CakeLoaf.BigMirror.Other.Transparency ==
