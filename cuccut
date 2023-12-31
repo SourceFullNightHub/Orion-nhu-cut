@@ -941,6 +941,9 @@ game:GetService("Players").LocalPlayer.Idled:connect(function()
     wait(1)
     game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 end)
+function RedeemCode(Code)
+    game:GetService("ReplicatedStorage").Remotes.Redeem:InvokeServer(Code)
+end
 function NotifyHeloo(H, I)
     Fluent:Notify({
         Title = "Night Hub",
@@ -991,6 +994,36 @@ SelectWeapon:SetValue("Melee")
 SelectWeapon:OnChanged(function(Value)
     _G.SelectWeapon = Value
 end)
+
+local Section = Tabs.G:AddSection("Misc")
+Tabs.G:AddButton({
+    Title = "Redeem All Code",
+    Description = "Click the Button to Redeem all code",
+    Callback = function()
+        RedeemCode("NEWTROLL")
+        RedeemCode("SECRET_ADMIN")
+        RedeemCode("KITT_RESET")
+        RedeemCode("JULYUPDATE_RESET")
+        RedeemCode("staffbattle")
+        RedeemCode("Sub2CaptainMaui")
+        RedeemCode("Sub2Fer999")
+        RedeemCode("Enyu_is_Pro")
+        RedeemCode("Magicbus")
+        RedeemCode("JCWK")
+        RedeemCode("SUB2GAMERROBOT_RESET1")
+        RedeemCode("Starcodeheo")
+        RedeemCode("Bluxxy")
+        RedeemCode("THEGREATACE")
+        RedeemCode("SUB2GAMERROBOT_EXP1")
+        RedeemCode("StrawHatMaine")
+        RedeemCode("Sub2OfficialNoobie")
+        RedeemCode("SUB2NOOBMASTER123")
+        RedeemCode("Sub2Daigrock")
+        RedeemCode("Axiore")
+        RedeemCode("TantaiGaming")
+        RedeemCode("STRAWHATMAINE")
+        end
+    })
 
 local Section = Tabs.G:AddSection("Select Method Farm")
 
@@ -1060,7 +1093,7 @@ local FastDelay = Tabs.S:AddDropdown("FastDelay", {
     Default = 1,
 })
 
-FastDelay:SetValue("Fast")
+FastDelay:SetValue("Normal")
 
 FastDelay:OnChanged(function(Value)
     _G.BringMode = Value
@@ -1081,7 +1114,7 @@ local BringMethod = Tabs.S:AddDropdown("BringMethod", {
     Default = 1,
 })
 
-BringMethod:SetValue("Fast")
+BringMethod:SetValue("Normal")
 
 BringMethod:OnChanged(function(Value)
     _G.BringMode = Value
