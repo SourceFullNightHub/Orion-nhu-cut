@@ -1683,11 +1683,11 @@ spawn(
         while wait() do
             if _G.FastAttackDelay then
                 if _G.FastAttackDelay == "Super Fast" then
-                    _G.FastAttackDelay = 0
+                    _G.FastAttackDelay = 0.05
                 elseif _G.FastAttackDelay == "Fast" then
-                    _G.FastAttackDelay = 0.2
+                    _G.FastAttackDelay = 0.15
                 elseif _G.FastAttackDelay == "Normal" then
-                    _G.FastAttackDelay = 0.175
+                    _G.FastAttackDelay = 0.25
                 elseif _G.FastAttackDelay == "Slow" then
                     _G.FastAttackDelay = 0.5
                 end
