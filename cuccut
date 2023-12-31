@@ -1630,13 +1630,22 @@ spawn(
         end
     end
 )
-spawn(function()
-    while wait() do
-        if _G.BringMonster then
-            if _G.Farm and BringBones then
-                for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                    if (v.Name == "Reborn Skeleton" or v.Name == "Living Zombie" or v.Name == "Demonic Soul" or v.Name == "Posessed Mummy") and (v.HumanoidRootPart.Position - PosMonBone.Position).Magnitude <= 350 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                        v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
+
+spawn(
+    function()
+        while wait() do
+            if _G.BringMonster then
+                for i, v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                    if _G.Farm and BringBones then
+                        if
+                            (v.Name == "Reborn Skeleton" or v.Name == "Living Zombie" or v.Name == "Demonic Soul" or
+                                v.Name == "Posessed Mummy") and
+                                (v.HumanoidRootPart.Position - Posskeleton.Position).Magnitude <= 350 and
+                                v:FindFirstChild("Humanoid") and
+                                v:FindFirstChild("HumanoidRootPart") and
+                                v.Humanoid.Health > 0
+                         then
+                            v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
                             v.Humanoid:ChangeState(14)
                             v.HumanoidRootPart.CanCollide = false
                             v.Head.CanCollide = false
@@ -1647,23 +1656,159 @@ spawn(function()
                             sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
                         end
                     end
-                if _G.Farm and BringCakes then
-                    if (v.Name == "Cookie Crafter" or v.Name == "Cake Guard" or v.Name == "Baking Staff" or v.Name == "Head Baker") and (v.HumanoidRootPart.Position - PosMonDoughtOpenDoor.Position).Magnitude <= 350 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
-                        v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
-                        v.Humanoid:ChangeState(14)
-                        v.HumanoidRootPart.CanCollide = false
-                        v.Head.CanCollide = false
-                        v.HumanoidRootPart.CFrame = PosCakesMob
-                        if v.Humanoid:FindFirstChild("Animator") then
-                            v.Humanoid.Animator:Destroy()
+                    if _G.Farm and BringCakes then
+                        if
+                            (v.Name == "Cookie Crafter" or v.Name == "Cake Guard" or v.Name == "Baking Staff" or
+                                v.Name == "Head Baker") and
+                                (v.HumanoidRootPart.Position - PosCakesMob.Position).Magnitude <= _G.BringMode and
+                                v:FindFirstChild("Humanoid") and
+                                v:FindFirstChild("HumanoidRootPart") and
+                                v.Humanoid.Health > 0
+                         then
+                            v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
+                            v.Humanoid:ChangeState(14)
+                            v.HumanoidRootPart.CanCollide = false
+                            v.Head.CanCollide = false
+                            v.HumanoidRootPart.CFrame = PosCakesMob
+                            if v.Humanoid:FindFirstChild("Animator") then
+                                v.Humanoid.Animator:Destroy()
+                            end
+                            sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
                         end
-                        sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
+                    end
+                    if _G.AutoCandy and BringMoney then
+                        if
+                            (v.Name == Mon or v.Name == Mon or
+                                v.Name == Mon) and
+                                (v.HumanoidRootPart.Position - CFrameMob.Position).Magnitude <= _G.BringMode and
+                                v:FindFirstChild("Humanoid") and
+                                v:FindFirstChild("HumanoidRootPart") and
+                                v.Humanoid.Health > 0
+                         then
+                            v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
+                            v.Humanoid:ChangeState(14)
+                            v.HumanoidRootPart.CanCollide = false
+                            v.Head.CanCollide = false
+                            v.HumanoidRootPart.CFrame = CFrameMob
+                            if v.Humanoid:FindFirstChild("Animator") then
+                                v.Humanoid.Animator:Destroy()
+                            end
+                            sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
+                        end
+                    end
+                    if _G.AutoFarmFruitMastery and StartMasteryFruitMagnet then
+                        if v.Name == "Monkey" then
+                            if
+                                (v.HumanoidRootPart.Position - PosMonMasteryFruit.Position).Magnitude <= _G.BringMode and
+                                    v:FindFirstChild("Humanoid") and
+                                    v:FindFirstChild("HumanoidRootPart") and
+                                    v.Humanoid.Health > 0
+                             then
+                                v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
+                                v.Humanoid:ChangeState(14)
+                                v.HumanoidRootPart.CanCollide = false
+                                v.Head.CanCollide = false
+                                v.HumanoidRootPart.CFrame = PosMonMasteryFruit
+                                if v.Humanoid:FindFirstChild("Animator") then
+                                    v.Humanoid.Animator:Destroy()
+                                end
+                                sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
+                            end
+                        elseif v.Name == "Factory Staff" then
+                            if
+                                (v.HumanoidRootPart.Position - PosMonMasteryFruit.Position).Magnitude <= _G.BringMode and
+                                    v:FindFirstChild("Humanoid") and
+                                    v:FindFirstChild("HumanoidRootPart") and
+                                    v.Humanoid.Health > 0
+                             then
+                                v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
+                                v.Humanoid:ChangeState(14)
+                                v.HumanoidRootPart.CanCollide = false
+                                v.Head.CanCollide = false
+                                v.HumanoidRootPart.CFrame = PosMonMasteryFruit
+                                if v.Humanoid:FindFirstChild("Animator") then
+                                    v.Humanoid.Animator:Destroy()
+                                end
+                                sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
+                            end
+                        elseif v.Name == Mon then
+                            if
+                                (v.HumanoidRootPart.Position - PosMonMasteryFruit.Position).Magnitude <= _G.BringMode and
+                                    v:FindFirstChild("Humanoid") and
+                                    v:FindFirstChild("HumanoidRootPart") and
+                                    v.Humanoid.Health > 0
+                             then
+                                v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
+                                v.Humanoid:ChangeState(14)
+                                v.HumanoidRootPart.CanCollide = false
+                                v.Head.CanCollide = false
+                                v.HumanoidRootPart.CFrame = PosMonMasteryFruit
+                                if v.Humanoid:FindFirstChild("Animator") then
+                                    v.Humanoid.Animator:Destroy()
+                                end
+                                sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
+                            end
+                        end
+                    end
+                    if _G.AutoFarmGunMastery and StartMasteryGunMagnet then
+                        if v.Name == "Monkey" then
+                            if
+                                (v.HumanoidRootPart.Position - PosMonMasteryGun.Position).Magnitude <= _G.BringMode and
+                                    v:FindFirstChild("Humanoid") and
+                                    v:FindFirstChild("HumanoidRootPart") and
+                                    v.Humanoid.Health > 0
+                             then
+                                v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
+                                v.Humanoid:ChangeState(14)
+                                v.HumanoidRootPart.CanCollide = false
+                                v.Head.CanCollide = false
+                                v.HumanoidRootPart.CFrame = PosMonMasteryGun
+                                if v.Humanoid:FindFirstChild("Animator") then
+                                    v.Humanoid.Animator:Destroy()
+                                end
+                                sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
+                            end
+                        elseif v.Name == "Factory Staff" then
+                            if
+                                (v.HumanoidRootPart.Position - PosMonMasteryGun.Position).Magnitude <= _G.BringMode and
+                                    v:FindFirstChild("Humanoid") and
+                                    v:FindFirstChild("HumanoidRootPart") and
+                                    v.Humanoid.Health > 0
+                             then
+                                v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
+                                v.Humanoid:ChangeState(14)
+                                v.HumanoidRootPart.CanCollide = false
+                                v.Head.CanCollide = false
+                                v.HumanoidRootPart.CFrame = PosMonMasteryGun
+                                if v.Humanoid:FindFirstChild("Animator") then
+                                    v.Humanoid.Animator:Destroy()
+                                end
+                                sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
+                            end
+                        elseif v.Name == Mon then
+                            if
+                                (v.HumanoidRootPart.Position - PosMonMasteryGun.Position).Magnitude <= _G.BringMode and
+                                    v:FindFirstChild("Humanoid") and
+                                    v:FindFirstChild("HumanoidRootPart") and
+                                    v.Humanoid.Health > 0
+                             then
+                                v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
+                                v.Humanoid:ChangeState(14)
+                                v.HumanoidRootPart.CanCollide = false
+                                v.Head.CanCollide = false
+                                v.HumanoidRootPart.CFrame = PosMonMasteryGun
+                                if v.Humanoid:FindFirstChild("Animator") then
+                                    v.Humanoid.Animator:Destroy()
+                                end
+                                sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
+                            end
+                        end
                     end
                 end
             end
         end
     end
-end)
+)
 task.spawn(
     function()
         while wait() do
@@ -1720,7 +1865,7 @@ spawn(
 )
 -- Bucu :
 spawn(function()
-	while wait(.5) do
+	while true do
 		pcall(function()
 			if _G.FastAttack then
 				repeat wait(_G.FastAttackDelay)
