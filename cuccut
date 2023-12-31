@@ -1348,8 +1348,6 @@ spawn(
                                                     v.Head.CanCollide = false
                                                     v.HumanoidRootPart.Size = Vector3.new(80, 80, 80)
                                                     BringLevel = true
-                                                    game:GetService "VirtualUser":CaptureController()
-                                                    game:GetService "VirtualUser":Button1Down(Vector2.new(1280, 672))
                                                 until not _G.SelectFarm == "Level" or v.Humanoid.Health <= 0 or
                                                     not v.Parent or
                                                     game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible ==
@@ -1390,8 +1388,6 @@ spawn(
                                             v.Humanoid.WalkSpeed = 0
                                             v.HumanoidRootPart.Size = Vector3.new(80, 80, 80)
                                             topos(v.HumanoidRootPart.CFrame * Pos)
-                                            game:GetService("VirtualUser"):CaptureController()
-                                            game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 672))
                                             sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", math.huge)
                                         until not _G.SelectFarm == "Cakes Island" or not v.Parent or
                                             v.Humanoid.Health <= 0
@@ -1559,8 +1555,6 @@ spawn(
                                             BringBones = true
                                             Posskeleton = v.HumanoidRootPart.CFrame
                                             topos(v.HumanoidRootPart.CFrame * Pos)
-                                            game:GetService("VirtualUser"):CaptureController()
-                                            game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 672))
                                         until not _G.SelectFarm == "Bone Farm" or not v.Parent or v.Humanoid.Health <= 0
                                     end
                                 end
