@@ -1145,6 +1145,23 @@ BTP:OnChanged(function(Value)
 Options.BTP:SetValue(false)
 
 
+local Section = Tabs.S:AddSection("Remove Misc")
+
+local RemoveTextHit = Tabs.S:AddToggle("RemoveTextHit", {Title = "Remove Text Damage", Default = true })
+
+RemoveTextHit:OnChanged(function(Value)
+        RemoveTextHit = Value
+    end)
+
+Options.RemoveTextHit:SetValue(true)
+
+local RemoveNotify = Tabs.S:AddToggle("RemoveNotify", {Title = "Remove Notify", Default = true })
+
+BTP:OnChanged(function(Value)
+        RemoveNotify = Value
+    end)
+
+Options.RemoveNotify:SetValue(true)
 
 
 
@@ -1717,16 +1734,49 @@ spawn(function()
         end
     end
 end)
-_G.Remove_Effect = true
+
+-- Remove Misc :
+
 spawn(function()
-    game:GetService('RunService').Stepped:Connect(function()
-        if _G.Remove_Effect then
-            for i, v in pairs(game:GetService("ReplicatedStorage").Effect.Container:GetChildren()) do
-                if v.Name == "Death" then
-                    v:Destroy() 
-                end
-            end
+    while wait() do
+        if RemoveTextHit then
+            game:GetService("ReplicatedStorage").Assets.GUI.DamageCounter.Enabled = false
+        else
+            game:GetService("ReplicatedStorage").Assets.GUI.DamageCounter.Enabled = true
         end
-    end)
+    end
 end)
+
+spawn(function()
+    while wait() do
+        if RemoveNotify then
+            game.Players.LocalPlayer.PlayerGui.Notifications.Enabled = false
+        else
+            game.Players.LocalPlayer.PlayerGui.Notifications.Enabled = true
+        end
+    end
+end)
+
+-- Remove Effect :
+spawn(function()
+    while wait() do
+        for i, v in pairs(game:GetService("Workspace")["_WorldOrigin"]:GetChildren()) do
+            pcall(function()
+                if v.Name == ("CurvedRing") or v.Name == ("SlashHit") or v.Name == ("SwordSlash") or v.Name == ("SlashTail") then --or v.Name == ("Sounds")
+                    v:Destroy()
+                end
+            end)
+        end
+    end
+end)
+
+getgenv().NoDieEffect = true
+if getgenv().NoDieEffect then
+    if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Death") then
+        game:GetService("ReplicatedStorage").Effect.Container.Death:Destroy()
+    end
+    if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Respawn") then
+        game:GetService("ReplicatedStorage").Effect.Container.Respawn:Destroy()
+    end
+end
 end
