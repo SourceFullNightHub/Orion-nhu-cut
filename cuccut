@@ -20,7 +20,7 @@ local Window = Fluent:CreateWindow({
     Size = UDim2.fromOffset(480, 375),
     Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
     Theme = "Darker",
-    MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
+    MinimizeKey = Enum.KeyCode.End -- Used when theres no MinimizeKeybind
 })
 local Options = Fluent.Options
 
@@ -36,6 +36,26 @@ local Tabs = {
     RC = Window:AddTab({ Title = "Race V4", Icon = "user-cog" }),
     S = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
+-- Buttons :
+-- Instances:
+
+local ScreenGui = Instance.new("ScreenGui")
+local ImageButton = Instance.new("ImageButton")
+local UICorner = Instance.new("UICorner")
+
+-- Properties:
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ImageButton.Parent = ScreenGui
+ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.BorderSizePixel = 0
+ImageButton.Position = UDim2.new(0.117863722, 0, 0.166666672, 0)
+ImageButton.Size = UDim2.new(0, 60, 0, 60)
+ImageButton.Image = "rbxassetid://15541504459"
+UICorner.Parent = ImageButton
+ImageButton.MouseButton1Down:connect(function()
+    game:GetService("VirtualInputManager"):SendKeyEvent(true,Enum.KeyCode.End,false,game)
+end)
 -- Check Quest :
 local MyLevel = game:GetService("Players").LocalPlayer.Data.Level.Value
 function QuestCheck() 
@@ -955,7 +975,7 @@ function NotifyLuuY(H, I)
 end
 -- Gui :
 
-NotifyHeloo("Welcome To Night Hub Script | Ui Fluent New!")
+NotifyHeloo("Welcome To Night Hub Script | Ui Fluent New!", 5)
 
 -- General :
 
