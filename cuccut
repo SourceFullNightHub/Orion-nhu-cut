@@ -760,9 +760,6 @@ function topos(Pos)
         TweenInfo.new(Distance/Speed, Enum.EasingStyle.Linear),
         {CFrame = Pos}
     ):Play()
-    _G.NOCLIP = true
-    wait(Distance/Speed)
-    _G.NOCLIP = false
 end
 getgenv().ToTargets = function(p)
 task.spawn(function()
