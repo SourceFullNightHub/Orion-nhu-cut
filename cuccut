@@ -51,7 +51,8 @@ local Tabs = {
     IQ = Window:AddTab({ Title = "Item & Quest", Icon = "swords" }),
     FM = Window:AddTab({ Title = "Farmming Others", Icon = "apple" }),
     LC = Window:AddTab({ Title = "Local Players", Icon = "user" }),
-    R = Window:AddTab({ Title = "Raid", Icon = "dna" }),
+    R = Window:AddTab({ Title = "Raid", Icon = "sun-moon" }),
+    R = Window:AddTab({ Title = "Devil Fruits", Icon = "apple" }),
     RC = Window:AddTab({ Title = "Race V4", Icon = "user-cog" }),
     S = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
@@ -1069,6 +1070,20 @@ Tabs.G:AddButton({
         end
     end
 
+    local Stats = Tabs.G:AddDropdown("Sts", {
+        Title = "Sekect Stats",
+        Values = {"Melee", "Sword", "Gun", "Devil Fruit"},
+        Multi = false,
+        Default = 1,
+    })
+
+    Stats:SetValue("Melee")
+
+    Stats:OnChanged(function(Value)
+        _G.Stats = Value
+    end)
+
+
 local Section = Tabs.G:AddSection("Select Method Farm")
 
 local Method = Tabs.G:AddDropdown("Method", {
@@ -1858,6 +1873,55 @@ if getgenv().NoDieEffect then
         game:GetService("ReplicatedStorage").Effect.Container.Respawn:Destroy()
     end
 end
+-- Stats :
+spawn(
+    function()
+        while wait() do
+            if game.Players.localPlayer.Data.Points.Value >= 1 then
+                if _G.Stats == "Melee" then
+                    local args = {
+                        [1] = "AddPoint",
+                        [2] = "Melee",
+                        [3] = 1
+                    }
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+                end
+                if _G.Stats == "Defense" then
+                    local args = {
+                        [1] = "AddPoint",
+                        [2] = "Defense",
+                        [3] = 1
+                    }
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+                end
+                if _G.Stats == "Sword" then
+                    local args = {
+                        [1] = "AddPoint",
+                        [2] = "Sword",
+                        [3] = 1
+                    }
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+                end
+                if _G.Stats == "Gun" then
+                    local args = {
+                        [1] = "AddPoint",
+                        [2] = "Gun",
+                        [3] = 1
+                    }
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+                end
+                if _G.Stats == "Blox Fruit" then
+                    local args = {
+                        [1] = "AddPoint",
+                        [2] = "Blox Fruit",
+                        [3] = 1
+                    }
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+                end
+            end
+        end
+    end
+)
 -- Join Team :
 if game.Players.LocalPlayer.PlayerGui.Main:FindFirstChild("ChooseTeam") then
     for i, v in pairs(
