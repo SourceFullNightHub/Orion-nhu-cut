@@ -1865,7 +1865,7 @@ spawn(
 )
 -- Bucu :
 spawn(function()
-	while true do
+	while wait(.5) do
 		pcall(function()
 			if _G.FastAttack then
 				repeat wait(_G.FastAttackDelay)
