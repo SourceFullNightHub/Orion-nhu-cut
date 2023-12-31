@@ -20,7 +20,7 @@ local Window = Fluent:CreateWindow({
     Size = UDim2.fromOffset(480, 375),
     Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
     Theme = "Darker",
-    MinimizeKey = Enum.KeyCode.End -- Used when theres no MinimizeKeybind
+    MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
 })
 local Options = Fluent.Options
 
@@ -54,7 +54,7 @@ ImageButton.Size = UDim2.new(0, 60, 0, 60)
 ImageButton.Image = "rbxassetid://15541504459"
 UICorner.Parent = ImageButton
 ImageButton.MouseButton1Down:connect(function()
-    game:GetService("VirtualInputManager"):SendKeyEvent(true,Enum.KeyCode.End,false,game)
+    game:GetService("VirtualInputManager"):SendKeyEvent(true,Enum.KeyCode.LeftControl,false,game)
 end)
 -- Check Quest :
 local MyLevel = game:GetService("Players").LocalPlayer.Data.Level.Value
