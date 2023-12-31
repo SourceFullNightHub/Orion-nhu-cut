@@ -803,12 +803,12 @@ function EquipWeapon(ToolSe)
     end
 end
 function BTP(P)
-repeat wait(1)
-    game.Players.LocalPlayer.Character.Humanoid:ChangeState(15)
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = P
-    task.wait()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = P
-until (P.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 1500
+    repeat wait(1)
+        game.Players.LocalPlayer.Character.Humanoid:ChangeState(15)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = P
+        task.wait()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = P
+    until (P.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 1500
 end
 function topos(Pos)
     Distance = (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
@@ -986,7 +986,6 @@ function NotifyLuuY(H, I)
 end
 
 -- Bucu k :
-------AttackNoCD
 local CamShake = require(game.ReplicatedStorage.Util.CameraShaker)
 CamShake:Stop()
 local plr = game.Players.LocalPlayer
@@ -1348,7 +1347,7 @@ spawn(
                                                     v.Humanoid.WalkSpeed = 0
                                                     v.Head.CanCollide = false
                                                     v.HumanoidRootPart.Size = Vector3.new(80, 80, 80)
-                                                    StartMagnet = true
+                                                    BringLevel = true
                                                     game:GetService "VirtualUser":CaptureController()
                                                     game:GetService "VirtualUser":Button1Down(Vector2.new(1280, 672))
                                                 until not _G.SelectFarm == "Level" or v.Humanoid.Health <= 0 or
@@ -1356,7 +1355,7 @@ spawn(
                                                     game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible ==
                                                         false
                                             else
-                                                StartMagnet = false
+                                                BringLevel = false
                                                 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(
                                                     "AbandonQuest"
                                                 )
@@ -1366,7 +1365,7 @@ spawn(
                                 end
                             else
                                 topos(CFrameMon)
-                                StartMagnet = false
+                                BringLevel = false
                                 if game:GetService("ReplicatedStorage"):FindFirstChild(Mon) then
                                     topos(
                                         game:GetService("ReplicatedStorage"):FindFirstChild(Mon).HumanoidRootPart.CFrame *
@@ -1434,8 +1433,8 @@ spawn(
                                                         v.Humanoid.WalkSpeed = 0
                                                         v.Head.CanCollide = false
                                                         v.HumanoidRootPart.Size = Vector3.new(80, 80, 80)
-                                                        MagnetDought = true
-                                                        PosMonDoughtOpenDoor = v.HumanoidRootPart.CFrame
+                                                        BringCakes = true
+                                                        PosCakesMob = v.HumanoidRootPart.CFrame
                                                         topos(v.HumanoidRootPart.CFrame * Pos)
                                                         game:GetService("VirtualUser"):CaptureController()
                                                         game:GetService("VirtualUser"):Button1Down(
@@ -1456,7 +1455,7 @@ spawn(
                                             end
                                         end
                                     else
-                                        MagnetDought = false
+                                        BringCakes = false
                                         if BypassTP then
                                             if
                                                 (game.Players.LocalPlayer.Character.HumanoidRootPart.Position -
@@ -1557,8 +1556,8 @@ spawn(
                                             v.HumanoidRootPart.CanCollide = false
                                             v.Humanoid.WalkSpeed = 0
                                             v.Head.CanCollide = false
-                                            StartCheckBone = true
-                                            PosMonBone = v.HumanoidRootPart.CFrame
+                                            BringBones = true
+                                            Posskeleton = v.HumanoidRootPart.CFrame
                                             topos(v.HumanoidRootPart.CFrame * Pos)
                                             game:GetService("VirtualUser"):CaptureController()
                                             game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 672))
@@ -1567,7 +1566,7 @@ spawn(
                                 end
                             end
                         else
-                            StartCheckBone = false
+                            BringBones = false
                             topos(CFrame.new(-9506.234375, 172.130615234375, 6117.0771484375))
                             for i, v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do
                                 if v.Name == "Reborn Skeleton" then
@@ -1594,7 +1593,7 @@ spawn(
                 QuestCheck()
                 for i, v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                     if
-                        _G.Farm and StartMagnet and v.Name == Mon and
+                        _G.Farm and BringLevel and v.Name == Mon and
                             (Mon == "Factory Staff" or Mon == "Monkey" or Mon == "Dragon Crew Warrior" or
                                 Mon == "Dragon Crew Archer") and
                             v:FindFirstChild("Humanoid") and
@@ -1614,7 +1613,7 @@ spawn(
                         end
                         sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
                     elseif
-                        _G.Farm and StartMagnet and v.Name == Mon and
+                        _G.Farm and BringLevel and v.Name == Mon and
                             v:FindFirstChild("Humanoid") and
                             v:FindFirstChild("HumanoidRootPart") and
                             v.Humanoid.Health > 0 and
@@ -1640,27 +1639,27 @@ spawn(
 spawn(function()
     while wait() do
         if _G.BringMonster then
-            if _G.Farm and StartCheckBone then
+            if _G.Farm and BringBones then
                 for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                     if (v.Name == "Reborn Skeleton" or v.Name == "Living Zombie" or v.Name == "Demonic Soul" or v.Name == "Posessed Mummy") and (v.HumanoidRootPart.Position - PosMonBone.Position).Magnitude <= 350 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                         v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
                             v.Humanoid:ChangeState(14)
                             v.HumanoidRootPart.CanCollide = false
                             v.Head.CanCollide = false
-                            v.HumanoidRootPart.CFrame = PosMonBone
+                            v.HumanoidRootPart.CFrame = Posskeleton
                             if v.Humanoid:FindFirstChild("Animator") then
                                 v.Humanoid.Animator:Destroy()
                             end
                             sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
                         end
                     end
-                if _G.Farm and MagnetDought then
+                if _G.Farm and BringCakes then
                     if (v.Name == "Cookie Crafter" or v.Name == "Cake Guard" or v.Name == "Baking Staff" or v.Name == "Head Baker") and (v.HumanoidRootPart.Position - PosMonDoughtOpenDoor.Position).Magnitude <= 350 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
                         v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
                         v.Humanoid:ChangeState(14)
                         v.HumanoidRootPart.CanCollide = false
                         v.Head.CanCollide = false
-                        v.HumanoidRootPart.CFrame = PosMonDoughtOpenDoor
+                        v.HumanoidRootPart.CFrame = PosCakesMob
                         if v.Humanoid:FindFirstChild("Animator") then
                             v.Humanoid.Animator:Destroy()
                         end
