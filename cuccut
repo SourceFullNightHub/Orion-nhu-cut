@@ -88,72 +88,6 @@ UICorner.Parent = ImageButton
 ImageButton.MouseButton1Down:connect(function()
     game:GetService("VirtualInputManager"):SendKeyEvent(true,Enum.KeyCode.LeftControl,false,game)
 end)
--- Remove Misc :
-spawn(function()
-    while wait() do
-        if RemoveTextHit then
-            game:GetService("ReplicatedStorage").Assets.GUI.DamageCounter.Enabled = false
-        else
-            game:GetService("ReplicatedStorage").Assets.GUI.DamageCounter.Enabled = true
-        end
-    end
-end)
-spawn(function()
-    while wait() do
-        if RemoveNotify then
-            for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.Notifications:GetChildren()) do
-                if v.Name == "NotificationTemplate" then
-                    v:Destroy()
-                end
-            end
-        end
-    end
-end)
--- Remove Effect :
-spawn(function()
-    while wait() do
-        for i, v in pairs(game:GetService("Workspace")["_WorldOrigin"]:GetChildren()) do
-            pcall(function()
-                if v.Name == ("CurvedRing") or v.Name == ("SlashHit") or v.Name == ("SwordSlash") or v.Name == ("SlashTail") then --or v.Name == ("Sounds")
-                    v:Destroy()
-                end
-            end)
-        end
-    end
-end)
-task.spawn(
-    function()
-        while true do
-            wait()
-            if setscriptable then
-                setscriptable(game.Players.LocalPlayer, "SimulationRadius", true)
-            end
-            if sethiddenproperty then
-                sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", math.huge)
-            end
-        end
-    end
-)
-function InMyNetWork(object)
-    if isnetworkowner then
-        return isnetworkowner(object)
-    else
-        if (object.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 300 then
-            return true
-        end
-        return false
-    end
-end
-
-getgenv().NoDieEffect = true
-if getgenv().NoDieEffect then
-    if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Death") then
-        game:GetService("ReplicatedStorage").Effect.Container.Death:Destroy()
-    end
-    if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Respawn") then
-        game:GetService("ReplicatedStorage").Effect.Container.Respawn:Destroy()
-    end
-end
 -- Check Quest :
 local MyLevel = game:GetService("Players").LocalPlayer.Data.Level.Value
 function QuestCheck() 
@@ -1875,4 +1809,70 @@ spawn(function()
 		end)
 	end
 end)
+-- Remove Misc :
+spawn(function()
+    while wait() do
+        if RemoveTextHit then
+            game:GetService("ReplicatedStorage").Assets.GUI.DamageCounter.Enabled = false
+        else
+            game:GetService("ReplicatedStorage").Assets.GUI.DamageCounter.Enabled = true
+        end
+    end
+end)
+spawn(function()
+    while wait() do
+        if RemoveNotify then
+            for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.Notifications:GetChildren()) do
+                if v.Name == "NotificationTemplate" then
+                    v:Destroy()
+                end
+            end
+        end
+    end
+end)
+-- Remove Effect :
+spawn(function()
+    while wait() do
+        for i, v in pairs(game:GetService("Workspace")["_WorldOrigin"]:GetChildren()) do
+            pcall(function()
+                if v.Name == ("CurvedRing") or v.Name == ("SlashHit") or v.Name == ("SwordSlash") or v.Name == ("SlashTail") then --or v.Name == ("Sounds")
+                    v:Destroy()
+                end
+            end)
+        end
+    end
+end)
+task.spawn(
+    function()
+        while true do
+            wait()
+            if setscriptable then
+                setscriptable(game.Players.LocalPlayer, "SimulationRadius", true)
+            end
+            if sethiddenproperty then
+                sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", math.huge)
+            end
+        end
+    end
+)
+function InMyNetWork(object)
+    if isnetworkowner then
+        return isnetworkowner(object)
+    else
+        if (object.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 300 then
+            return true
+        end
+        return false
+    end
+end
+
+getgenv().NoDieEffect = true
+if getgenv().NoDieEffect then
+    if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Death") then
+        game:GetService("ReplicatedStorage").Effect.Container.Death:Destroy()
+    end
+    if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Respawn") then
+        game:GetService("ReplicatedStorage").Effect.Container.Respawn:Destroy()
+    end
+end
 end
