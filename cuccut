@@ -1109,14 +1109,14 @@ spawn(function()
                         StartMagnet = false
                         QuestCheck()
 
-                        if BypassTP then
-                            if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameQuest.Position).Magnitude > 1500 then
-                                BTP(CFrameQuest)
-                            elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameQuest.Position).Magnitude < 1500 then
-                                topos(CFrameQuest)
+                        if BypassTeleport then
+                            if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameMon.Position).Magnitude > 1500 then
+                                BTP(CFrameMon)
+                            elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameMon.Position).Magnitude < 1500 then
+                                Tween(CFrameQuest)
                             end
                         else
-                            topos(CFrameQuest)
+                            Tween(CFrameQuest)
                         end
 
                         if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameQuest.Position).Magnitude <= 20 then
@@ -1142,7 +1142,7 @@ spawn(function()
                                                 EquipWeapon(_G.SelectWeapon)
                                                 TurnOnBuso()
                                                 PosMon = v.HumanoidRootPart.CFrame
-                                                topos(v.HumanoidRootPart.CFrame * Pos)
+                                                Tween(v.HumanoidRootPart.CFrame * Pos)
                                                 v.HumanoidRootPart.CanCollide = false
                                                 v.Humanoid.WalkSpeed = 0
                                                 v.Head.CanCollide = false
@@ -1158,7 +1158,7 @@ spawn(function()
                                 end
                             end
                         else
-                            topos(CFrameMon)
+                            (CFrameMon)
                             BringLevel = false
 
                             if game:GetService("ReplicatedStorage"):FindFirstChild(Mon) then
