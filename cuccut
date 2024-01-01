@@ -673,6 +673,91 @@ if game:GetService("ReplicatedStorage").Assets:FindFirstChild('SlashHit') then
 game:GetService("ReplicatedStorage").Assets:FindFirstChild('SlashHit'):Destroy()
 end
 -- Tween :
+function toTarget(...)
+    local RealtargetPos = {...}
+    local targetPos = RealtargetPos[1]
+    local RealTarget
+    if type(targetPos) == "vector" then
+        RealTarget = CFrame.new(targetPos)
+    elseif type(targetPos) == "userdata" then
+        RealTarget = targetPos
+    elseif type(targetPos) == "number" then
+        RealTarget = CFrame.new(unpack(RealtargetPos))
+    end
+    if game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health == 0 then
+        if tween then
+            tween:Cancel()
+        end
+        repeat
+            wait()
+        until game.Players.LocalPlayer.Character:WaitForChild("Humanoid").Health > 0
+        wait(0.2)
+    end
+    local tweenfunc = {}
+    local Distance =
+        (RealTarget.Position -
+        game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position).Magnitude
+    if Distance < 1000 then
+        Speed = 315
+    elseif Distance >= 1000 then
+        Speed = 300
+    end
+    if BypassTP then
+        if
+            Distance > 3000 and not AutoNextIsland and
+                not (game.Players.LocalPlayer.Backpack:FindFirstChild("Special Microchip") or
+                    game.Players.LocalPlayer.Character:FindFirstChild("Special Microchip") or
+                    game.Players.LocalPlayer.Backpack:FindFirstChild("God's Chalice") or
+                    game.Players.LocalPlayer.Character:FindFirstChild("God's Chalice") or
+                    game.Players.LocalPlayer.Backpack:FindFirstChild("Hallow Essence") or
+                    game.Players.LocalPlayer.Character:FindFirstChild("Hallow Essence") or
+                    game.Players.LocalPlayer.Character:FindFirstChild("Sweet Chalice") or
+                    game.Players.LocalPlayer.Backpack:FindFirstChild("Sweet Chalice")) and
+                not (Name == "Fishman Commando" or Name == "Fishman Warrior")
+         then
+            pcall(
+                function()
+                    tween:Cancel()
+                    fkwarp = false
+                    if
+                        game:GetService("Players")["LocalPlayer"].Data:FindFirstChild("SpawnPoint").Value ==
+                            tostring(GetIsLand(RealTarget))
+                     then
+                        wait(.1)
+                        Com("F_", "TeleportToSpawn")
+                    elseif
+                        game:GetService("Players")["LocalPlayer"].Data:FindFirstChild("LastSpawnPoint").Value ==
+                            tostring(GetIsLand(RealTarget))
+                     then
+                        game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid"):ChangeState(15)
+                        wait(0.1)
+                        repeat
+                            wait()
+                        until game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").Health > 0
+                    else
+                        if game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").Health > 0 then
+                            if fkwarp == false then
+                                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RealTarget
+                            end
+                            fkwarp = true
+                        end
+                        wait(.08)
+                        game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid"):ChangeState(15)
+                        repeat
+                            wait()
+                        until game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").Health > 0
+                        wait(.1)
+                        Com("F_", "SetSpawnPoint")
+                    end
+                    wait(0.2)
+
+                    return
+                end
+            )
+        end
+    end
+end
+
 function Tween(Pos)
     Distance = (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
     if game.Players.LocalPlayer.Character.Humanoid.Sit == true then
