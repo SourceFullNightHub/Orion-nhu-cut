@@ -22,6 +22,9 @@ local Window = Fluent:CreateWindow({
     Theme = "Darker",
     MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
 })
+local Options = Fluent.Options
+
+do
 -- Make Tabs :
 local Tabs = {
     I = Window:AddTab({ Title = "Info", Icon = "info" }),
