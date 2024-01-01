@@ -1066,7 +1066,7 @@ end)
 local BTP = Tabs.S:AddToggle("BTP", {Title = "Bypass Teleport", Default = false })
 
 BTP:OnChanged(function(Value)
-        BypassTP = Value
+        BypassTeleport = Value
     end)
 
 Options.BTP:SetValue(false)
@@ -1126,13 +1126,13 @@ spawn(function()
                                             PosBringLevel = v.HumanoidRootPart.CFrame
                                             Tween(v.HumanoidRootPart.CFrame * Pos)
                                             BringMobLevel = true
-                                        until Humanoid.Health <= 0 or not v:FindFirstChild("HumanoidRootPart") or not v.Parent
+                                        until v.Humanoid.Health <= 0 or not v:FindFirstChild("HumanoidRootPart") or not v.Parent
                                     end
                                 end
                             end
                         else
                             Tween(CFrameMon)
-                            StartMagnet = false
+                            BringMobLevel = false
                             if game:GetService("ReplicatedStorage"):FindFirstChild(Mon) then
                                 Tween(game:GetService("ReplicatedStorage"):FindFirstChild(Mon).HumanoidRootPart.CFrame * CFrame.new(0, 20, 0))
                             end
