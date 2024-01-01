@@ -703,7 +703,7 @@ end
 -- Body Gyro :
 spawn(function()
     while wait() do
-        if _G.Farm then
+        if _G.Farm or NoClip then
             pcall(function()
                 if not game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
                     local Noclip = Instance.new("BodyVelocity")
@@ -724,7 +724,7 @@ end)
 -- No CLip :
 spawn(function()
     while wait() do
-        if _G.Farm then
+        if _G.Farm or NoClip then
             pcall(function()
                 for _,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
                     if v:IsA("BasePart") then
