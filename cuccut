@@ -856,12 +856,13 @@ function StopTween(target)
         _G.StopTween = true
         wait()
         Tween(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
+        tween:Cancel()
         wait()
         if game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
             game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip"):Destroy()
         end
         _G.StopTween = false
-        _G.Clip = false
+        NoClip = false
     end
 end
 -- function Fast Attack :
@@ -975,9 +976,9 @@ Evade = 1
 spawn(function()
     while wait(.1) do
         if Evade == 1 then
-            Pos = CFrame.new(120,60,0)
+            Pos = CFrame.new(120,PosY,0)
         elseif Evade == 2 then
-            Pos = CFrame.new(-120,60,0)
+            Pos = CFrame.new(-120,PosY,0)
         end
         end
     end)
@@ -1290,7 +1291,7 @@ spawn(function()
                             Tween(CFrameMon)
                             BringLevel = false
                             if game:GetService("ReplicatedStorage"):FindFirstChild(Mon) then
-                                topos(
+                                Tween(
                                     game:GetService("ReplicatedStorage"):FindFirstChild(Mon).HumanoidRootPart.CFrame *
                                         CFrame.new(0, 20, 0)
                                 )
