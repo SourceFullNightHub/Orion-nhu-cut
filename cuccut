@@ -1097,44 +1097,75 @@ spawn(function()
             if _G.SelectFarmMethod == "Level" then
                 pcall(function()
                     QuestCheck()
-                    if not string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Text, NameMon) or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
+                    local QuestTitle =
+                        game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text
+
+                    if not string.find(QuestTitle, NameMon) then
+                        StartMagnet = false
                         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
-                        if BypassTeleport then
-                            if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameMon.Position).Magnitude > 2500 then
-                                BTP(CFrameMon)
-                            elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameMon.Position).Magnitude < 2500 then
-                                Tween(CFrameQuest)
+                    end
+
+                    if not game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible then
+                        StartMagnet = false
+                        QuestCheck()
+
+                        if BypassTP then
+                            if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameQuest.Position).Magnitude > 1500 then
+                                BTP(CFrameQuest)
+                            elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameQuest.Position).Magnitude < 1500 then
+                                topos(CFrameQuest)
                             end
                         else
-                            Tween(CFrameQuest)
+                            topos(CFrameQuest)
                         end
-                        if (CFrameQuest.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5 then
-                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StartQuest", NameQuest, LevelQuest)
+
+                        if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameQuest.Position).Magnitude <= 20 then
+                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(
+                                "StartQuest",
+                                NameQuest,
+                                LevelQuest
+                            )
                         end
-                    elseif string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Text, NameMon) or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
-                        if game:GetService("Workspace").Enemies:FindFirstChild(NameMon) then
+                    elseif game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true then
+                        QuestCheck()
+
+                        if game:GetService("Workspace").Enemies:FindFirstChild(Mon) then
                             for i, v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                                if v.Name == Mon then
-                                    if v.Humanoid.Health > 0 and v:FindFirstChild("HumanoidRootPart") and v.Parent then
-                                        repeat task.wait()
-                                            TurnOnBuso()
-                                            EquipWeapon(_G.SelectWeapon)
-                                            v.HumanoidRootPart.CFrame = Vector3.new(80, 80, 80)
-                                            v.Humanoid.WalkSpeed = 0
-                                            v.HumanoidRootPart.CanCollide = false
-                                            v.Head.CanCollide = false
-                                            PosBringLevel = v.HumanoidRootPart.CFrame
-                                            Tween(v.HumanoidRootPart.CFrame * Pos)
-                                            BringMobLevel = true
-                                        until v.Humanoid.Health <= 0 or not v:FindFirstChild("HumanoidRootPart") or not v.Parent
+                                if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
+                                    if v.Name == Mon then
+                                        if string.find(
+                                            game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text,
+                                            NameMon
+                                        ) then
+                                            repeat
+                                                task.wait()
+                                                EquipWeapon(_G.SelectWeapon)
+                                                TurnOnBuso()
+                                                PosMon = v.HumanoidRootPart.CFrame
+                                                topos(v.HumanoidRootPart.CFrame * Pos)
+                                                v.HumanoidRootPart.CanCollide = false
+                                                v.Humanoid.WalkSpeed = 0
+                                                v.Head.CanCollide = false
+                                                v.HumanoidRootPart.Size = Vector3.new(80, 80, 80)
+                                                BringLevel = true
+                                            until not _G.SelectFarm == "Level" or v.Humanoid.Health <= 0 or not v.Parent or
+                                                game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false
+                                        else
+                                            BringLevel = false
+                                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
+                                        end
                                     end
                                 end
                             end
                         else
-                            Tween(CFrameMon)
-                            BringMobLevel = false
+                            topos(CFrameMon)
+                            BringLevel = false
+
                             if game:GetService("ReplicatedStorage"):FindFirstChild(Mon) then
-                                Tween(game:GetService("ReplicatedStorage"):FindFirstChild(Mon).HumanoidRootPart.CFrame * CFrame.new(0, 20, 0))
+                                topos(
+                                    game:GetService("ReplicatedStorage"):FindFirstChild(Mon).HumanoidRootPart.CFrame *
+                                        CFrame.new(0, 20, 0)
+                                )
                             end
                         end
                     end
@@ -1143,6 +1174,7 @@ spawn(function()
         end
     end
 end)
+
 
 -- Remove Effect :
 task.spawn(
