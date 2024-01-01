@@ -1,12 +1,12 @@
 -- Check Game & Sea :
-if PlaceID == 2753915549 then
+if game.PlaceId == 2753915549 then
     Sea1 = true
-elseif PlaceID == 4442272183 then
+elseif game.PlaceId == 4442272183 then
     Sea2 = true
-elseif PlaceID == 7449423635 then
+elseif game.PlaceId == 7449423635 then
     Sea3 = true
 else
-    game:GetService("Players").LocalPlayer:Kick("Support Only Blox Fruit.")
+    game:GetService("Players").LocalPlayer:Kick("Do not Support, Please wait...")
 end
 -- Source Ui Fluent :
 local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
