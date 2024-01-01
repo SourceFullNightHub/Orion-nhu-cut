@@ -1148,7 +1148,7 @@ spawn(function()
                                                 v.Head.CanCollide = false
                                                 v.HumanoidRootPart.Size = Vector3.new(80, 80, 80)
                                                 BringLevel = true
-                                            until not _G.SelectFarm == "Level" or v.Humanoid.Health <= 0 or not v.Parent or
+                                            until not _G.SelectFarmMethod == "Level" or v.Humanoid.Health <= 0 or not v.Parent or
                                                 game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false
                                         else
                                             BringLevel = false
@@ -1158,7 +1158,7 @@ spawn(function()
                                 end
                             end
                         else
-                            (CFrameMon)
+                            Tween(CFrameMon)
                             BringLevel = false
 
                             if game:GetService("ReplicatedStorage"):FindFirstChild(Mon) then
