@@ -22,6 +22,9 @@ local Window = Fluent:CreateWindow({
     Theme = "Darker",
     MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
 })
+local Options = Fluent.Options
+
+do
 -- Make Tabs :
 local Tabs = {
     G = Window:AddTab({ Title = "General", Icon = "home" }),
@@ -936,7 +939,7 @@ local Farming = Tabs.G:AddSection("Farming")
 
 local AutoFarm = Tabs.G:AddToggle("AutoFarm", {Title = "Auto Farm Level", Default = false })
 
-AutoFarm::OnChanged(function(Value)
+AutoFarm:OnChanged(function(Value)
         _G.LevelFarm = Value
         StopTween(_G.LevelFarm)
     end)
