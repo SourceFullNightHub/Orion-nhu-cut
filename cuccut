@@ -1009,8 +1009,8 @@ spawn(function()
                                 if v.Name == Mon then
                                     if string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, NameMon) then
                                         repeat task.wait()
-                                            EquipWeapon(_G.SelectWeapon)
-                                            TurnOnBuso()
+                                            EquipTool(_G.SelectWeapon)
+                                            Buso()
                                             PosLevelMob = v.HumanoidRootPart.CFrame
                                             Tween(v.HumanoidRootPart.CFrame * Pos)
                                             v.HumanoidRootPart.CanCollide = false
