@@ -827,8 +827,6 @@ spawn(function()
                     Noclip.Velocity = Vector3.new(0, 0, 0)
                 end
             end)
-        else
-            game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip"):Destroy()
         end
     end
 end)
