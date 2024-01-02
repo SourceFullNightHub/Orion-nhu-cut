@@ -1132,12 +1132,12 @@ if game.PlaceId == 2753915549 then
                     },
                     {
                         ["name"] = "Job Id",
-                        ["value"] = '' .. game.JobId .. '',
+                        ["value"] = "```" .. game.JobId .. "```",
                         ["inline"] = true
                     },
                     {
                         ["name"] = "Script Job Id",
-                        ["value"] = 'game:GetService("TeleportService"):TeleportToPlaceInstance(' .. game.PlaceId .. ', "' .. game.JobId .. '", game.Players.LocalPlayer)',
+                        ["value"] = "```game:GetService("TeleportService"):TeleportToPlaceInstance(" .. game.PlaceId .. ", " .. game.JobId .. ", game.Players.LocalPlayer)```",
                         ["inline"] = true
                     },
                 }
