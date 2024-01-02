@@ -857,6 +857,25 @@ function StopTween(target)
         NoClip = false
     end
 end
+Evade = 1
+spawn(function()
+    while wait(.1) do
+        if Evade == 1 then
+            Pos = CFrame.new(0,PosY,0)
+        elseif Evade == 2 then
+            Pos = CFrame.new(-0,PosY,0)
+        end
+        end
+    end)
+
+spawn(function()
+    while wait(.1) do
+        Evade = 1
+        wait(2)
+        Evade = 2
+        wait(2)
+    end
+end)
 -- EquipTool :
 function EquipTool(lol)
     if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(lol) then
@@ -962,49 +981,65 @@ spawn(function()
         if _G.LevelFarm then
             pcall(function()
                 CheckQuest()
-                if not string.find(game.Players.LocalPlayer.PlayerGui.Quest.Container.QuestTitle.Title.Text, NameMon) or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
+                local QuestTitle = game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text
+                if not string.find(QuestTitle, NameMon) then
+                    StartBringLevelMob = false
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
+                end
+                if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
+                    StartBringLevelMob = false
+                    QuestCheck()
                     if BypassTeleport then
-                        if (CFrameMon.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 2000 then
+                        if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameMon.Position).Magnitude > 1500 then
                             BTP(CFrameMon)
-                        elseif (CFrameMon.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 2000 then
+                        elseif (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameMon.Position).Magnitude < 1500 then
                             Tween(CFrameQuest)
                         end
                     else
                         Tween(CFrameQuest)
                     end
-                    
-                    if (CFrameQuest.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 5 then
+                    if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - CFrameQuest.Position).Magnitude <= 20 then
                         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StartQuest", NameQuest, LevelQuest)
                     end
-                else
-                    for i, v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                        if v.Name == Mon then
-                            if _G.LevelFarm and v.Humanoid.Health > 0 and v:FindFirstChild("HumanoidRootPart") and v.Parent then
-                                repeat task.wait()
-                                    Buso()
-                                    EquipTool(_G.SelectWeapon)
-                                    v.HumanoidRootPart.Size = Vector3.new(80, 80, 80)
-                                    v.Head.CanCollide = false
-                                    v.HumanoidRootPart.CanCollide = false
-                                    v.Humanoid.WalkSpeed = 0
-                                    Tween(v.HumanoidRootPart.CFrame * Pos)
-                                    Click()
-                                    PosLevelMob = v.HumanoidRootPart.CFrame
-                                    StartBringLevelMob = true
-                                until not _G.LevelFarm or v.Humanoid.Health <= 0 or not v:FindFirstChild("HumanoidRootPart") or game.Players.LocalPlayer.PlayerGui.Main.Quest.Visible == false
+                elseif game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true then
+                    QuestCheck()
+                    if game:GetService("Workspace").Enemies:FindFirstChild(Mon) then
+                        for i, v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                            if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
+                                if v.Name == Mon then
+                                    if string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, NameMon) then
+                                        repeat task.wait()
+                                            EquipWeapon(_G.SelectWeapon)
+                                            TurnOnBuso()
+                                            PosLevelMob = v.HumanoidRootPart.CFrame
+                                            Tween(v.HumanoidRootPart.CFrame * Pos)
+                                            v.HumanoidRootPart.CanCollide = false
+                                            v.Humanoid.WalkSpeed = 0
+                                            v.Head.CanCollide = false
+                                            v.HumanoidRootPart.Size = Vector3.new(80, 80, 80)
+                                            StartBringLevelMob = true
+                                            game:GetService'VirtualUser':CaptureController()
+                                        until not _G.SelectFarmMethod == "Level" or v.Humanoid.Health <= 0 or not v.Parent or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false
+                                    else
+                                        StartBringLevelMob = false
+                                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
+                                    end
+                                end
                             end
                         end
-                    end
-                    StartBringLevelMob = false
-                    Tween(CFrameQuest)
-                    if game:GetService("ReplicatedStorage"):FindFirstChild(Mon) then
-                        Tween(game:GetService("ReplicatedStorage"):FindFirstChild(Mon).HumanoidRootPart.CFrame * CFrame.new(0, 20, 0))
+                    else
+                        Tween(CFrameMon)
+                        StartBringLevelMob = false
+                        if game:GetService("ReplicatedStorage"):FindFirstChild(Mon) then
+                            Tween(game:GetService("ReplicatedStorage"):FindFirstChild(Mon).HumanoidRootPart.CFrame * CFrame.new(0, 20, 0))
+                        end
                     end
                 end
             end)
         end
     end
 end)
+
 
 
 -- Settings :
