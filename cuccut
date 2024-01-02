@@ -846,6 +846,21 @@ spawn(function()
         end)
     end)
 end)
+-- StopTween :
+function StopTween(LOL)
+    if not LOL then
+        _G.StopTween = true
+        wait()
+        Tween(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame)
+        Tween:Cancel()
+        wait()
+        if game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
+            game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip"):Destroy()
+        end
+        _G.StopTween = false
+        NoClip = false
+    end
+end
 -- EquipTool :
 function EquipTool(lol)
     if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(lol) then
