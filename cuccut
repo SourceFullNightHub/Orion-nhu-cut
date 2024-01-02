@@ -851,7 +851,7 @@ function StopTween(LOL)
         _G.StopTween = true
         wait()
         Tween(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame)
-        Tween:Cancel()
+        tween:Cancel()
         wait()
         if game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
             game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip"):Destroy()
