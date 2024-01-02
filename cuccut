@@ -915,8 +915,7 @@ if getgenv().NoDieEffect then
 end
 spawn(function()
     while wait() do
-            game:GetService("ReplicatedStorage").Assets.GUI.DamageCounter.Enabled = false
-        end
+        game:GetService("ReplicatedStorage").Assets.GUI.DamageCounter.Enabled = false
     end
 end)
 spawn(function()
