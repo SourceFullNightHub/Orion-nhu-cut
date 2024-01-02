@@ -778,12 +778,14 @@ function toTarget(...)
 
     return tweenfunc
 end
+
+
 function Tween(Pos)
     Distance = (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
     if game.Players.LocalPlayer.Character.Humanoid.Sit == true then 
         game.Players.LocalPlayer.Character.Humanoid.Sit = false 
     end
-    pcall(function() 
+    pcall(function()
         tween = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(Distance/300, Enum.EasingStyle.Linear),{CFrame = Pos}) 
     end)
     tween:Play()
@@ -796,29 +798,19 @@ function Tween(Pos)
         NoClip = false
     end
 end
-Type = 1
+-- Bypass Teleport :
+function BTP(Pos)
+    repeat wait(1)
+        game.Players.LocalPlayer.Character.Humanoid:ChangeState(15)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Pos
+        task.wait()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Pos
+    until (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 1500
+end
+-- Body Gyro :
 spawn(function()
-    while wait(.1) do
-        if Type == 1 then
-            Pos = CFrame.new(80,PosY,0)
-		elseif Type == 2 then
-			Pos = CFrame.new(0,PosY,-80)
-        end
-    end
-end)
-
-spawn(function()
-    while wait(.1) do
-        Type = 1
-        wait(0.5)
-        Type = 2
-        wait(0.5)
-    end
-end)
--- Body Clip :
-spawn(function()
-    while task.wait() do
-        if _G.Farm or NoClip then
+    while wait() do
+        if _G.LevelFarm or NoClip then
             pcall(function()
                 if not game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
                     local Noclip = Instance.new("BodyVelocity")
@@ -828,29 +820,34 @@ spawn(function()
                     Noclip.Velocity = Vector3.new(0, 0, 0)
                 end
             end)
+        else
+            local bodyClip = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip")
+            if bodyClip then
+                bodyClip:Destroy() -- Chat GPT giúp
+            end
         end
     end
 end)
--- NoClip :
+-- No CLip :
 spawn(function()
-    pcall(function()
-        game:GetService("RunService").Stepped:Connect(function()
-            if _G.Farm or NoClip then
-                for i, v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+    while wait() do
+        if _G.LevelFarm or NoClip then
+            pcall(function()
+                for _,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
                     if v:IsA("BasePart") then
                         v.CanCollide = false
                     end
                 end
-            end
-        end)
-    end)
+            end)
+        end
+    end
 end)
 -- StopTween :
-function StopTween(LOL)
-    if not LOL then
+function StopTween(target)
+    if not target then
         _G.StopTween = true
         wait()
-        Tween(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame)
+        Tween(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
         tween:Cancel()
         wait()
         if game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
