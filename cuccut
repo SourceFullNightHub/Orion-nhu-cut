@@ -786,7 +786,7 @@ function Tween(Pos)
     pcall(function()
         Tween = game:GetService("TweenService"):Create(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(300/Distance),Enum.EasingStyle.Linear, {CFrame = Pos})
     end)
-    Tween:play()
+    Tween:Play()
     if Distance <= 300 then
         game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = Pos
     end
@@ -983,7 +983,6 @@ spawn(function()
                         if v.Name == Mon then
                             if _G.LevelFarm and v.Humanoid.Health > 0 and v:FindFirstChild("HumanoidRootPart") and v.Parent then
                                 repeat task.wait()
-                                    print("Farming loop")
                                     Buso()
                                     EquipTool(_G.SelectWeapon)
                                     v.HumanoidRootPart.Size = Vector3.new(80, 80, 80)
@@ -999,6 +998,7 @@ spawn(function()
                         end
                     end
                     StartBringLevelMob = false
+                    Tween(CFrameQuest)
                     if game:GetService("ReplicatedStorage"):FindFirstChild(Mon) then
                         Tween(game:GetService("ReplicatedStorage"):FindFirstChild(Mon).HumanoidRootPart.CFrame * CFrame.new(0, 20, 0))
                     end
