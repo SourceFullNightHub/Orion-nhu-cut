@@ -913,6 +913,23 @@ if getgenv().NoDieEffect then
         game:GetService("ReplicatedStorage").Effect.Container.Respawn:Destroy()
     end
 end
+spawn(function()
+    while wait() do
+            game:GetService("ReplicatedStorage").Assets.GUI.DamageCounter.Enabled = false
+        end
+    end
+end)
+spawn(function()
+    while wait() do
+        pcall(function()
+            for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.Notifications:GetChildren()) do
+                if v.Name == "NotificationTemplate" then
+                    v:Destroy()
+                end
+            end
+        end)
+    end
+end)
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 local AddSectionSelectWeapon = Tabs.G:AddSection("Select Weapon")
 local SelectWeapon = Tabs.G:AddDropdown("SelectWeapon", {
