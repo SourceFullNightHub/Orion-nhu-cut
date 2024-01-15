@@ -96,6 +96,8 @@ Callback = <function> - The function of the button.
 Tab:AddToggle({
 	Name = "This is a toggle!",
 	Default = false,
+	Save = true,
+	Flag = "Save",
 	Callback = function(Value)
 		print(Value)
 	end    
