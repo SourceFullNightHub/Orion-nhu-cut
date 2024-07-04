@@ -117,7 +117,7 @@ local Dropdown = Tabs.Main:AddDropdown("Dropdown", {
 ```
 
 # Multi Dropdown
-
+```
 local MultiDropdown = Tabs.Main:AddDropdown("MultiDropdown", {
     Title = "Dropdown",
     Description = "You can select multiple values.",
@@ -128,7 +128,7 @@ local MultiDropdown = Tabs.Main:AddDropdown("MultiDropdown", {
         print("Dropdown Set : ", Value)
     end
 })
-
+```
 # Color Picker
 ```
 local Colorpicker = Tabs.Main:AddColorpicker("Colorpicker", {
