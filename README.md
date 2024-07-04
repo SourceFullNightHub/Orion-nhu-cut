@@ -41,12 +41,13 @@ Fluent:Notify({
 })
 ```
 
-
+# Paragraph
+```
 Tabs.Main:AddParagraph({
     Title = "Paragraph",
     Content = "This is a paragraph.\nSecond line!"
 })
-
+```
 # Create Button + Create dialog
 ```
 Tabs.Main:AddButton({
